@@ -1,0 +1,36 @@
+header{
+	position: relative;
+	height: 150px;
+	width: 100%;
+	background-color:#f2900b;
+}
+header h1{
+	position: relative;
+	text-align: center;
+	color:white;
+	
+}
+header h1 small{
+	color:white;
+	font-size: 10px;
+	padding: 0px;
+	position: absolute;
+	top:36px;
+
+}
+.div_inicio_sesion{
+	padding-right: 100px;
+}
+header a,header p{
+	color:white;
+	vertical-align: center;
+	line-height: 150px;
+	font-size: 16px;
+}
+header a:hover,header a:active,header p:hover{
+	color:white;
+	vertical-align: center;
+}
+.logo{
+	padding:2%;
+}

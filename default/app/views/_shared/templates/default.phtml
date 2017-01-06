@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+ <head>
+  <meta http-equiv='Content-type' content='text/html; charset=<?php echo APP_CHARSET ?>' />
+  <title>EmpleoListo</title>
+  <link rel="stylesheet" href="<?php echo PUBLIC_PATH ?>bootstrap/css/bootstrap.min.css">
+  <?php echo Tag::css("estilos") ?>
+  <?php echo Html::includeCss() ?>
+  <?php echo Tag::js("jquery-1.12.4.min") ?>
+</head>
+<body>
+  <header>
+    <div class="row">
+      <div class="col-md-3 col-xs-3 logo">
+        <h1>empleolisto <br><small>Recruitment Station</small></h1>
+      </div>
+      <div class="col-md-6 col-xs-6">
+        <div class="row">
+          <div class="col-md-4 col-xs-4">
+            <?php echo Html::link("","<p>Nuestras Empresas</p>") ?>
+          </div>
+          <div class="col-md-4 col-xs-4">
+          <?php echo Html::link("","¿Cómo Funciona?") ?>
+          </div>
+          <div class="col-md-4 col-xs-4">
+          <?php echo Html::link("","Contáctanos") ?>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-xs-3">
+        <div class="pull-right div_inicio_sesion">
+          <?php echo Html::link("","Iniciar Sesión") ?>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </header>
+  <?php View::content(); ?>
+</body>
+</html>
