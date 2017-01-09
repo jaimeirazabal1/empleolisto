@@ -1,0 +1,201 @@
+<style type="text/css">
+	html,body{
+		margin:0px;
+		height:100%;
+		font-family: Century Gothic, sans-serif;
+
+	}
+	header{
+		background-color:#1e96ce;
+		height: 100px;
+		width: 100%;
+		box-shadow: 2px 2px 10px;
+	}
+	.fondo{
+		position: relative;
+		background-image: url("<?php echo PUBLIC_PATH ?>img/RECRUITMENT STATION/fondo_superadmin-06.jpg");
+		background-repeat:no-repeat;
+		width: 100%;
+		background-size:cover;
+		height: 100%;
+
+	}
+	.logo{
+		padding:0 !important;
+	}
+	header a,header p{
+		color:white;
+		vertical-align: center;
+		line-height: 100px;
+		font-size: 16px;
+	}
+	#titulo_pagina{
+		color:white;
+		font-size: 40px;
+		width: 300px;
+		font-weight: bold;
+		margin-left: 100px;
+	}
+	#titulo_pagina_2{
+		color:white;
+		font-size: 20px;
+		width: 300px;
+		font-weight: bold;
+		margin-left: 100px;
+	}
+	#form_registro{
+		width: 100%;
+	}
+	#form_registro label{
+		font-weight: 100;
+		color: white;
+	}
+	#form_registro input[type="checkbox"]{
+	  -ms-transform: scale(2); /* IE */
+	  -moz-transform: scale(2); /* FF */
+	  -webkit-transform: scale(2); /* Safari and Chrome */
+	  -o-transform: scale(2); /* Opera */
+	  padding: 10px;
+	}
+	.checks{
+		  -ms-transform: scale(2); /* IE */
+		  -moz-transform: scale(2); /* FF */
+		  -webkit-transform: scale(2); /* Safari and Chrome */
+		  -o-transform: scale(2); /* Opera */
+		  padding: 10px;
+		  border:1px solid white;
+		  background-color: red;
+	}
+	.checks_text{
+		text-align: center;
+		color:white;
+	}
+	.checkboxes{
+		margin-top: 20px;
+	}
+	.btn_crear_empresa{
+		color:white;
+		background-color: #f3910c;
+		border:0;
+		padding:10px 40px 10px 40px;
+		font-size: 25px;
+		box-shadow: 3px 3px 5px grey;
+	}
+</style>
+
+<div class="fondo">
+
+	<header>
+	    <div class="row">
+	      <div class="col-md-3 col-xs-3 logo">
+	        <h1>empleolisto <br><small>Recruitment Station</small></h1>
+	      </div>
+	      <div class="col-md-6 col-xs-6">
+	        <div class="row">
+	          <div class="col-md-4 col-xs-4">
+	            <?php echo Html::link("","<p>Opciones</p>") ?>
+	          </div>
+	          <div class="col-md-4 col-xs-4">
+	          <?php echo Html::link("","Ver perfiles") ?>
+	          </div>
+	          <div class="col-md-4 col-xs-4">
+	          <?php echo Html::link("","Ver Empresas") ?>
+	          </div>
+	        </div>
+	      </div>
+	      <div class="col-md-3 col-xs-3">
+	        <div class="pull-right div_inicio_sesion">
+	          <?php echo Html::link("","Log out") ?>
+	        </div>
+	        <div class="clearfix"></div>
+	      </div>
+	    </div>
+	</header>
+		
+
+		
+	<div id="titulo_pagina">
+		<p>Crear Nueva Empresa</p>
+	</div>
+
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<div id="form_registro">
+					<?php echo Form::open("","post",'class="form-horizontal"') ?>
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">User</label>
+						<div class="col-sm-10">
+							<input type="email" class="form-control" id="inputEmail3" placeholder="User">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+						<div class="col-sm-10">
+							<input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-2 control-label">URL</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="inputPassword3" placeholder="Url">
+						</div>
+					</div>
+					
+
+				
+			</div>		
+		</div>
+		<div class="col-md-3"></div>
+
+	</div>
+	<div class="row checkboxes">
+		<div class="col-md-3 checks_text">
+			<label><input class="checks" type="checkbox"> &nbsp;&nbsp;3 Meses</label>
+		</div>
+		<div class="col-md-2 checks_text">
+			<label><input class="checks" type="checkbox"> &nbsp;&nbsp;6 Meses</label>
+		</div>
+		<div class="col-md-2 checks_text">
+			<label><input class="checks" type="checkbox"> &nbsp;&nbsp;9 Meses</label>
+		</div>
+		<div class="col-md-2 checks_text">
+			<label><input class="checks" type="checkbox"> &nbsp;&nbsp;12 Meses</label>
+		</div>
+		<div class="col-md-3">
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn_crear_empresa">Crear</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	</form>
+	<div id="titulo_pagina_2">
+		<p>Cambio de Password de SuperAdmin</p>
+	</div>
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<div id="form_registro">
+					<?php echo Form::open("","post",'class="form-horizontal"') ?>
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">Password</label>
+						<div class="col-sm-10">
+							<input type="email" class="form-control" id="inputEmail3" placeholder="User">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-2 control-label">Rectificar</label>
+						<div class="col-sm-10">
+							<input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+						</div>
+					</div>
+				
+			</div>		
+		</div>
+		<div class="col-md-3"></div>
+
+	</div>
+</div>
+<?php View::content() ?>
