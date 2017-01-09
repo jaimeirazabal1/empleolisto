@@ -9,7 +9,10 @@ class IndexController extends AppController
 
     public function index()
     {
-        
+        Router::redirect("RS/");
+    }
+    public function login(){
+    	
     }
 
 }
