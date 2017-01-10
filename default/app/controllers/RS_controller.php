@@ -17,4 +17,10 @@ class RSController extends AppController{
 	public function superadmin(){
 
 	}
+	public function verPerfiles(){
+
+	}
+	public function verEmpresas(){
+		
+	}
 }
