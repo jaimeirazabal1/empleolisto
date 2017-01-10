@@ -17,7 +17,7 @@
 		background-repeat:no-repeat;
 		width: 100%;
 		background-size:cover;
-		height: 100%;
+		/*height: 100%;*/
 
 	}
 	.logo{
@@ -87,6 +87,23 @@
 	}
 	.iconos_sexo{
 		width: 20px;
+	}
+	.lightSlider img{
+		width: 20px;
+	}
+	.lSAction a:hover,.lSAction a:hover{
+		color: #ff7e03 !important;
+			
+	}
+
+	.lSNext span,.lSPrev span{
+		top: 14%;
+		font-size: 20px;
+		font-weight: bold;
+	}
+	
+	.lSNext,.lSPrev{
+		color: #ff7e03;
 	}
 </style>
 
@@ -170,7 +187,20 @@
 						<td>Teléfono <?php echo $i ?></td>
 						<td>Fecha de Aplicación <?php echo $i ?></td>
 						<td><?php echo Html::img("RECRUITMENT STATION/iconos h y m-01.png","","class='iconos_sexo'") ?><?php echo Html::img("RECRUITMENT STATION/iconos h y m-04.png","","class='iconos_sexo'") ?></td>
-						<td>Status <?php echo $i ?></td>
+						<td>
+							<div style="width:100px">
+								
+							<ul class="lightSlider">
+							  <li><a href=""><?php echo Html::img('RECRUITMENT STATION/iconos2-02.png') ?></a></li>
+							  <li><a href=""><?php echo Html::img('RECRUITMENT STATION/iconos2-03.png') ?></a></li>
+							  <li><a href=""><?php echo Html::img('RECRUITMENT STATION/iconos2-04.png') ?></a></li>
+							  <li><a href=""><?php echo Html::img('RECRUITMENT STATION/iconos2-05.png') ?></a></li>
+							  <li><a href=""><?php echo Html::img('RECRUITMENT STATION/iconos2-06.png') ?></a></li>
+							  <li><a href=""><?php echo Html::img('RECRUITMENT STATION/iconos2-07.png') ?></a></li>
+							  <li><a href=""><?php echo Html::img('RECRUITMENT STATION/iconos2-08.png') ?></a></li>
+							</ul>
+							</div>							  
+						</td>
 						<td>Comentarios <?php echo $i ?></td>
 					</tr>
 				<?php endfor; ?>
@@ -183,3 +213,26 @@
 
 </div>
 <?php View::content() ?>
+<link rel="stylesheet" href="<?php echo PUBLIC_PATH ?>lightslider/dist/css/lightslider.min.css"">
+<!-- <script type="text/javascript" src="<?php echo PUBLIC_PATH ?>bootstrap/js/bootstrap.min.js"></script> -->
+<script type="text/javascript" src="<?php echo PUBLIC_PATH ?>lightslider/dist/js/lightslider.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$('.lightSlider').lightSlider({
+	    item: 3,
+	    pager: false,
+	    autoWidth: false,
+    prevHtml : '<span class="glyphicon glyphicon-chevron-left"></span>',
+    nextHtml : '<span class="glyphicon glyphicon-chevron-right"></span>'
+	});
+})
+</script>
+<style type="text/css">
+	.lSAction > .lSPrev { left: 0px !important; }
+	.lSNext        { left: 80%; }
+	.lSAction >a  {
+		background-image: none !important;
+		color:;
+	}
+</style>
