@@ -21,6 +21,9 @@ class RSController extends AppController{
 
 	}
 	public function verEmpresas(){
+
+	}
+	public function miPerfil(){
 		
 	}
 }
