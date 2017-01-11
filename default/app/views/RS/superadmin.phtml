@@ -127,19 +127,19 @@
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-2 control-label">User</label>
 						<div class="col-sm-10">
-							<input type="email" class="form-control" id="inputEmail3" placeholder="User">
+							<input type="text" class="form-control" autocomplete="new-password" name="company_user[username]" id="inputEmail3" placeholder="User">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+							<input type="password" class="form-control" autocomplete="new-password" name="company_user[password]" id="inputPassword3" placeholder="Password">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-2 control-label">URL</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="inputPassword3" placeholder="Url">
+							<input type="text" class="form-control" name="company[url]" id="" placeholder="Url">
 						</div>
 					</div>
 					
@@ -152,16 +152,16 @@
 	</div>
 	<div class="row checkboxes">
 		<div class="col-md-3 checks_text">
-			<label><input class="checks" type="checkbox"> &nbsp;&nbsp;3 Meses</label>
+			<label><input class="checks" value="3" name="company[meses]" type="radio"> &nbsp;&nbsp;3 Meses</label>
 		</div>
 		<div class="col-md-2 checks_text">
-			<label><input class="checks" type="checkbox"> &nbsp;&nbsp;6 Meses</label>
+			<label><input class="checks" value="6" name="company[meses]" type="radio"> &nbsp;&nbsp;6 Meses</label>
 		</div>
 		<div class="col-md-2 checks_text">
-			<label><input class="checks" type="checkbox"> &nbsp;&nbsp;9 Meses</label>
+			<label><input class="checks" value="9" name="company[meses]" type="radio"> &nbsp;&nbsp;9 Meses</label>
 		</div>
 		<div class="col-md-2 checks_text">
-			<label><input class="checks" type="checkbox"> &nbsp;&nbsp;12 Meses</label>
+			<label><input class="checks" value="12" name="company[meses]" type="radio"> &nbsp;&nbsp;12 Meses</label>
 		</div>
 		<div class="col-md-3">
 			<div class="form-group">
@@ -179,17 +179,17 @@
 		<div class="col-md-4"></div>
 		<div class="col-md-4">
 			<div id="form_registro">
-					<?php echo Form::open("","post",'class="form-horizontal"') ?>
+					<?php echo Form::open("","post",'class="form-horizontal" autocomplete="false"') ?>
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-2 control-label">Password</label>
 						<div class="col-sm-10">
-							<input type="email" class="form-control" id="inputEmail3" placeholder="User">
+							<input type="email" class="form-control" autocomplete="new-password" placeholder="User">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-2 control-label">Rectificar</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+							<input type="password" class="form-control" autocomplete="new-password" placeholder="Password">
 						</div>
 					</div>
 				
@@ -197,6 +197,23 @@
 		</div>
 		<div class="col-md-3"></div>
 
+	</div>
+		<div class="row checkboxes">
+		<div class="col-md-3 checks_text">
+		</div>
+		<div class="col-md-2 checks_text">
+		</div>
+		<div class="col-md-2 checks_text">
+		</div>
+		<div class="col-md-2 checks_text">
+		</div>
+		<div class="col-md-3">
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn_crear_empresa">Cambiar</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <?php View::content() ?>

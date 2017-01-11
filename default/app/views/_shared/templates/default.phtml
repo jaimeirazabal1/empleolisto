@@ -9,6 +9,14 @@
   <?php echo Tag::css("estilos") ?>
   <?php echo Html::includeCss() ?>
   <?php echo Tag::js("jquery-1.12.4.min") ?>
+  <script type="text/javascript" src="<?php echo PUBLIC_PATH ?>bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+  	$(document).ready(function(){
+  		    $(".alert").animate({
+		        height: '+=3',
+		    });
+  	})
+  </script>
 </head>
 <body>
   <?php View::content(); ?>
