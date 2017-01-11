@@ -51,3 +51,6 @@ a.boton_app,button.boton_app{
 	color:grey;
 	cursor:pointer;
 }
+.form-control{
+	border-radius: 0px !important;
+}

@@ -20,10 +20,19 @@ class RSController extends AppController{
 	public function verPerfiles(){
 
 	}
+	public function misPerfiles(){
+
+	}
 	public function verEmpresas(){
 
 	}
 	public function miPerfil(){
+		
+	}
+	public function nuevoPerfil(){
+
+	}
+	public function gracias(){
 		
 	}
 }
