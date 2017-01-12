@@ -12,9 +12,12 @@
   <script type="text/javascript" src="<?php echo PUBLIC_PATH ?>bootstrap/js/bootstrap.min.js"></script>
   <script type="text/javascript">
   	$(document).ready(function(){
-  		    $(".alert").animate({
+  		  $(".alert").animate({
 		        height: '+=3',
 		    });
+        setTimeout(function(){
+          $(".alert").slideUp();          
+        },4000);
   	})
   </script>
 </head>

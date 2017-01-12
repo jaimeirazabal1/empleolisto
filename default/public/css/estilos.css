@@ -56,7 +56,7 @@ a.boton_app,button.boton_app{
 }
 .alert{
 	position: fixed !important;
-	z-index:2;
+	z-index:20;
 	margin:auto;
 	width: 75%;
 	left: 50%;

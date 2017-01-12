@@ -91,7 +91,7 @@
 	.fondo_izquierdo ul li{
 		color:grey;
 		text-align: right;
-		margin-bottom:150px;
+		margin-bottom:200px;
 	}
 	.fondo_derecho ul li{
 		color:grey;
@@ -151,7 +151,7 @@
 		margin-bottom: 0px;
 	}
 </style>
-
+<?php View::content() ?>
 <div class="fondo">
 
 	<header>
@@ -172,7 +172,7 @@
 	      </div>
 	      <div class="col-md-3 col-xs-3">
 	        <div class="pull-right div_inicio_sesion">
-	          <?php echo Html::link("","Log out") ?>
+	          <?php echo Html::link("RS/logout","Log out") ?>
 	        </div>
 	        <div class="clearfix"></div>
 	      </div>
@@ -191,12 +191,16 @@
 				<li>Aviso de Privacidad:</li>
 			</ul>
 		</div>
+		<?php echo Form::openMultipart() ?>
 		<div class="col-md-10 fondo_derecho">
 			<ul>
 				<li>
 					<div class="row">
 						<div class="col-md-4 text-center">
 							<img src="<?php echo PUBLIC_PATH ?>img/RECRUITMENT STATION/sears-logo.png" alt="TU Logo" class="img-thumbnail logo_empresa">
+							<br>
+							<br>
+							<?php echo Form::file('logo') ?>
 						</div>
 						<div class="col-md-4 form-inline text-center">
 							<label>Cambio de Password</label>
@@ -217,6 +221,8 @@
 						<div class="row">
 							<div class="col-md-10">
 								<?php echo Html::img("fondo_trabajando.jpg","",'class="img-thumbnail"') ?>
+								<br><br>
+								<?php echo Form::file('logo') ?>
 							</div>
 							<div class="col-md-2">
 								<span style="font-size: 9px;color:black;">650x140 px</span>
@@ -300,11 +306,18 @@
 						<div class="col-md-2 text-left">
 							<!--<span style="font-size: 9px;color:black;">140 caracteres</span>-->
 						</div>
-						<div class="col-md-2"></div>					
+						<div class="col-md-2"></div>	
+						<div class="clearfix"></div>				
 				</li>
+				
 			</ul>
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<button type="submit" class="btn_crear_empresa">Guardar</button>
+				</div>
+			</div>
+			</form>
 		</div>
 	</div>	
 
 </div>
-<?php View::content() ?>
