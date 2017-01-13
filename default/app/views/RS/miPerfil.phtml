@@ -80,7 +80,7 @@
 	}
 	.fondo_izquierdo{
 		background: rgba(255, 255, 255, 0.5);
-		height: 100%;
+		height: 1400px;
 		opacity: 0.5;
 		border-right: 1px solid white;
 	}
@@ -91,7 +91,6 @@
 	.fondo_izquierdo ul li{
 		color:grey;
 		text-align: right;
-		margin-bottom:200px;
 	}
 	.fondo_derecho ul li{
 		color:grey;
@@ -104,7 +103,7 @@
 	#fondo_perfil{
 		width: 100px;
 		height: 100px;
-		background-color: white;
+		background-color: <?php echo $company_fields->bg_color ?>;
 		margin: auto;
 		padding:6px;
 	}
@@ -150,7 +149,25 @@
 		font-size: 10px;
 		margin-bottom: 0px;
 	}
+	.bg_url{
+		max-height: 140px;
+	}
 </style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#cantidad_palabras").text(140-$("#texto").val().length+" Caracteres");
+
+		$(".bg_url").click(function(){
+			window.open($(this).attr("src"))
+		});
+		$(".logo_empresa").click(function(){
+			window.open($(this).attr("src"))
+		});
+		$("#texto").keyup(function(){
+			$("#cantidad_palabras").text(140-$(this).val().length+" Caracteres");
+		})
+	})
+</script>
 <?php View::content() ?>
 <div class="fondo">
 
@@ -182,12 +199,12 @@
 	<div class="row">
 		<div class="col-md-2 fondo_izquierdo">
 			<ul>
-				<li>Logo:</li>
-				<li>Back:</li>
-				<li>Texto:</li>
-				<li>Puesto:</li>
-				<li>Agradecimiento:</li>
-				<li>Aviso de Privacidad:</li>
+				<li style="margin-bottom: 260px">Logo:</li>
+				<li style="margin-bottom: 260px">Back:</li>
+				<li style="margin-bottom: 100px">Texto:</li>
+				<li style="margin-bottom: 160px">Puesto:</li>
+				<li style="margin-bottom: 160px">Agradecimiento:</li>
+				<li style="margin-bottom: 160px">Aviso de Privacidad:</li>
 			</ul>
 		</div>
 		<?php echo Form::openMultipart() ?>
@@ -196,7 +213,8 @@
 				<li>
 					<div class="row">
 						<div class="col-md-4 text-center">
-							<img src="<?php echo PUBLIC_PATH ?>img/RECRUITMENT STATION/sears-logo.png" alt="TU Logo" class="img-thumbnail logo_empresa">
+							<?php echo Html::img($company_fields->logo_url,'TU Logo','class="img-thumbnail logo_empresa"') ?>
+							
 							<br>
 							<br>
 							<?php echo Form::file('logo') ?>
@@ -214,12 +232,12 @@
 							<div id="fondo_perfil" class='img-thumbnail'>
 								<p>Selecciona un color de fondo abajo!</p>
 							</div><br>
-							<input type="color" onchange="$('#fondo_perfil').css('backgroundColor',$(this).val())">
+							<input type="color" name="color" onchange="$('#fondo_perfil').css('backgroundColor',$(this).val())">
 						</div>
 						<div class="col-md-5">
 						<div class="row">
 							<div class="col-md-10">
-								<?php echo Html::img("fondo_trabajando.jpg","",'class="img-thumbnail"') ?>
+								<?php echo Html::img($company_fields->bg_url,"",'class="img-thumbnail bg_url"') ?>
 								<br><br>
 								<?php echo Form::file('logo_fondo') ?>
 							</div>
@@ -237,11 +255,11 @@
 					<div class="row">
 						<div class="col-md-2"></div>
 						<div class="col-md-6">
-							<?php echo Form::textarea("texto","class='form-control'") ?>
+							<?php echo Form::textarea("texto","class='form-control'",$company_fields->texto) ?>
 							
 						</div>
 						<div class="col-md-2 text-left">
-							<span style="font-size: 9px;color:black;">140 caracteres</span>
+							<span id="cantidad_palabras" style="font-size: 9px;color:black;">140 caracteres</span>
 						</div>
 						<div class="col-md-2">
 					</div>

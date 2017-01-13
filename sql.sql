@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-01-2017 a las 17:47:42
+-- Tiempo de generación: 13-01-2017 a las 17:02:37
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -39,7 +39,7 @@ CREATE TABLE `company` (
 --
 
 INSERT INTO `company` (`id`, `company_user`, `url`, `status`, `created`) VALUES
-(3, 4, 'ernest', '', '2017-01-12 13:33:28');
+(1, 10, 'ernest', NULL, '2017-01-13 15:16:35');
 
 -- --------------------------------------------------------
 
@@ -49,15 +49,22 @@ INSERT INTO `company` (`id`, `company_user`, `url`, `status`, `created`) VALUES
 
 CREATE TABLE `company_fields` (
   `id` int(11) NOT NULL,
-  `logo_url` varchar(255) NOT NULL,
-  `bg_color` varchar(20) NOT NULL,
-  `bg_url` varchar(255) NOT NULL,
-  `texto` text NOT NULL,
-  `agradecimiento` text NOT NULL,
-  `aviso_privacidad` text NOT NULL,
+  `logo_url` varchar(255) DEFAULT NULL,
+  `bg_color` varchar(20) DEFAULT NULL,
+  `bg_url` varchar(255) DEFAULT NULL,
+  `texto` varchar(140) DEFAULT NULL,
+  `agradecimiento` text,
+  `aviso_privacidad` text,
   `company_id` int(11) NOT NULL,
-  `created` int(11) NOT NULL
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `company_fields`
+--
+
+INSERT INTO `company_fields` (`id`, `logo_url`, `bg_color`, `bg_url`, `texto`, `agradecimiento`, `aviso_privacidad`, `company_id`, `created`) VALUES
+(1, 'upload/1484320965_5.jpg', '#000000', 'upload/1484321566_1.jpg', 'jaime Irazabal 16923509                                                                                                                    d', NULL, NULL, 1, '2017-01-13 15:16:35');
 
 -- --------------------------------------------------------
 
@@ -78,7 +85,7 @@ CREATE TABLE `company_plan` (
 --
 
 INSERT INTO `company_plan` (`id`, `meses`, `activo`, `company_id`, `created`) VALUES
-(1, 9, 1, 3, '2017-01-12 13:33:29');
+(1, 12, 1, 1, '2017-01-13 15:16:35');
 
 -- --------------------------------------------------------
 
@@ -113,7 +120,7 @@ CREATE TABLE `company_user` (
 
 INSERT INTO `company_user` (`id`, `username`, `password`, `role`, `created`) VALUES
 (1, 'superadmin', '17c4520f6cfd1ab53d8745e84681eb49', 'admin', '2017-01-11 19:02:29'),
-(4, 'ernesto', '8f91bdb4de0142710ac1718345b96308', NULL, '2017-01-12 13:33:28');
+(10, 'ernesto', '8f91bdb4de0142710ac1718345b96308', NULL, '2017-01-13 15:16:35');
 
 --
 -- Índices para tablas volcadas
@@ -157,12 +164,12 @@ ALTER TABLE `company_user`
 -- AUTO_INCREMENT de la tabla `company`
 --
 ALTER TABLE `company`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `company_fields`
 --
 ALTER TABLE `company_fields`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `company_plan`
 --
@@ -177,7 +184,7 @@ ALTER TABLE `company_puesto`
 -- AUTO_INCREMENT de la tabla `company_user`
 --
 ALTER TABLE `company_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
