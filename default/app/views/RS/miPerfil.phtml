@@ -237,9 +237,11 @@
 						<div class="col-md-5">
 						<div class="row">
 							<div class="col-md-10">
-								<?php echo Html::img($company_fields->bg_url,"",'class="img-thumbnail bg_url"') ?>
-								<br><br>
-								<?php echo Form::file('logo_fondo') ?>
+								<center>
+									<?php echo Html::img($company_fields->bg_url,"",'class="img-thumbnail bg_url"') ?>
+									<br><br>
+									<?php echo Form::file('logo_fondo') ?>
+								</center>
 							</div>
 							<div class="col-md-2">
 								<span style="font-size: 9px;color:black;">650x140 px</span>
@@ -279,22 +281,21 @@
 									<label><input type="checkbox">&nbsp;Cocina</label><br>
 									<label><input type="checkbox">&nbsp;Mesero</label><br>
 									<label><input type="checkbox">&nbsp;Chef</label><br>
-								</div>
-								<div class="col-md-3 text-left">
-									<label><input type="checkbox">&nbsp;Edecán</label><br>
 									<label><input type="checkbox">&nbsp;Ventas</label><br>
-									<label><input type="checkbox">&nbsp;Promotor</label><br>
 								</div>
 								<div class="col-md-3 text-left">
+									<label><input type="checkbox">&nbsp;Promotor</label><br>
 									<label><input type="checkbox">&nbsp;Barista</label><br>
 									<label><input type="checkbox">&nbsp;Bartender</label><br>
 									<label><input type="checkbox">&nbsp;Seguridad</label><br>
+								</div>
+								<div class="col-md-3 text-left">
 								</div>
 							</div>
 							
 						</div>
 						<div class="col-md-3 cajero_div ">
-								Agregar: <span class='cajero_box'>Cajero <button class="btn-mas">+</button> <button class="btn-menos">-</button> </span>
+								Agregar: <span class='cajero_box'><input type="text" style="color:grey" name="nuevo_puesto"> <button class="btn-mas">+</button></span>
 						</div>
 						<div class="col-md-1"></div>
 					</div>					
@@ -304,7 +305,7 @@
 						<div class="col-md-2"></div>
 						<div class="col-md-6">
 
-							<?php echo Form::textarea("agradecimiento","class='form-control' rows='4'","Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam accusamus incidunt, praesentium modi, dolorem blanditiis eligendi qui doloribus perspiciatis unde, laboriosam excepturi sapiente") ?>
+							<?php echo Form::textarea("agradecimiento","class='form-control' rows='4'",$company_fields->agradecimiento) ?>
 							
 						</div>
 						<div class="col-md-2 text-left">
@@ -317,7 +318,7 @@
 						<div class="col-md-2"></div>
 						<div class="col-md-6">
 
-							<?php echo Form::textarea("aviso_privacidad","class='form-control' rows='4'","Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam accusamus incidunt, praesentium modi, dolorem blanditiis eligendi qui doloribus perspiciatis unde, laboriosam excepturi sapiente") ?>
+							<?php echo Form::textarea("aviso_privacidad","class='form-control' rows='4'",$company_fields->aviso_privacidad) ?>
 							
 						</div>
 						<div class="col-md-2 text-left">

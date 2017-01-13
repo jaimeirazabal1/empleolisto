@@ -140,6 +140,20 @@ class RSController extends AppController{
                 Flash::error("Ocurrió un error actualizando el texto de fondo de su página");
             }			
 		}
+		if (Input::hasPost("agradecimiento")) {
+			$company_fields = Load::model("company_fields")->find_first("conditions: company_id = '".$company->id."' ");
+            $company_fields->agradecimiento = Input::post("agradecimiento");
+            if (!$company_fields->update()) {
+                Flash::error("Ocurrió un error actualizando el agradecimiento de fondo de su página");
+            }			
+		}
+		if (Input::hasPost("aviso_privacidad")) {
+			$company_fields = Load::model("company_fields")->find_first("conditions: company_id = '".$company->id."' ");
+            $company_fields->aviso_privacidad = Input::post("aviso_privacidad");
+            if (!$company_fields->update()) {
+                Flash::error("Ocurrió un error actualizando el aviso privacidad de fondo de su página");
+            }			
+		}
 		$this->company_fields = Load::model("company_fields")->find_first("conditions: company_id = '".$company->id."' ");
 
 	}
