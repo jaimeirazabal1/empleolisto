@@ -162,7 +162,6 @@
 	      <div class="col-md-6 col-xs-6">
 	        <div class="row">
 	          <div class="col-md-4 col-xs-4">
-	            <?php echo Html::link("","<p>Opciones</p>") ?>
 	          </div>
 	          <div class="col-md-4 col-xs-4">
 	          <?php echo Html::link("RS/verPerfiles","Ver perfiles") ?>
@@ -204,7 +203,7 @@
 						</div>
 						<div class="col-md-4 form-inline text-center">
 							<label>Cambio de Password</label>
-							<input type="text" class="form-control" placeholder="Cambiar Contraseña" style="width:50%">
+							<input type="text" class="form-control" name="password" placeholder="Cambiar Contraseña" style="width:50%">
 						</div>
 					</div>
 				</li>
@@ -222,7 +221,7 @@
 							<div class="col-md-10">
 								<?php echo Html::img("fondo_trabajando.jpg","",'class="img-thumbnail"') ?>
 								<br><br>
-								<?php echo Form::file('logo') ?>
+								<?php echo Form::file('logo_fondo') ?>
 							</div>
 							<div class="col-md-2">
 								<span style="font-size: 9px;color:black;">650x140 px</span>

@@ -61,6 +61,6 @@ a.boton_app,button.boton_app{
 	width: 75%;
 	left: 50%;
 	margin-left: -37.5%;
-	margin-top:10px;
 	box-shadow: 2px 2px 10px grey;
+	overflow : auto;
 }

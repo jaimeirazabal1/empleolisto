@@ -14,7 +14,7 @@
 		background-image: url("<?php echo PUBLIC_PATH ?>img/RECRUITMENT STATION/fondo_superadmin-06.jpg");
 		background-repeat:no-repeat;
 		background-size:cover;
-		
+	
 	}
 	.logo{
 		padding:0 !important;
@@ -81,7 +81,7 @@
 		padding-bottom: 50px;
 		background-color: #d8dfe0;
 		height: 100%;
-
+		
 	}
 	.fondo_izquierdo ul,.fondo_derecho ul{
 		margin-top:100px;
@@ -98,7 +98,14 @@
 		margin-bottom:60px;		
 	}
 </style>
-
+<?php View::content() ?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var height = $("body").css("height");
+		$(".fondo_izquierdo").css("minHeight",height)
+		console.log(height)
+	})
+</script>
 <div class="fondo">
 
 	<header>
@@ -109,7 +116,6 @@
 	      <div class="col-md-6 col-xs-6">
 	        <div class="row">
 	          <div class="col-md-4 col-xs-4">
-	            <?php echo Html::link("","<p>Opciones</p>") ?>
 	          </div>
 	          <div class="col-md-4 col-xs-4">
 	          <?php echo Html::link("RS/verPerfiles","Ver perfiles") ?>
@@ -132,26 +138,40 @@
 	<div class="row">
 		<div class="col-md-3 fondo_izquierdo">
 			<ul>
-				<li>Liverpool:</li>
-				<li>Sears:</li>
-				<li>Bancomer:</li>
-				<li>Banamex:</li>
-				<li>Honda:</li>
-				<li>Toks:</li>
+				<?php foreach ($empresas as $key => $value): ?>
+					<li><?php echo ucfirst($value->url) ?>:</li>
+				<?php endforeach ?>
 			</ul>
 		</div>
 		<div class="col-md-9 fondo_derecho">
 			<ul>
-				<li><a href=""><?php echo Html::img('iconos2-01.png',"","width='60'") ?></a><a href=""><?php echo Html::img('iconos2-02.png',"","width='60'") ?></a><a href=""><?php echo Html::img('iconos2-03.png',"","width='60'") ?></a></li>
-				<li><a href=""><?php echo Html::img('iconos2-01.png',"","width='60'") ?></a><a href=""><?php echo Html::img('iconos2-02.png',"","width='60'") ?></a><a href=""><?php echo Html::img('iconos2-03.png',"","width='60'") ?></a></li>
-				<li><a href=""><?php echo Html::img('iconos2-01.png',"","width='60'") ?></a><a href=""><?php echo Html::img('iconos2-02.png',"","width='60'") ?></a><a href=""><?php echo Html::img('iconos2-03.png',"","width='60'") ?></a></li>
-				<li><a href=""><?php echo Html::img('iconos2-01.png',"","width='60'") ?></a><a href=""><?php echo Html::img('iconos2-02.png',"","width='60'") ?></a><a href=""><?php echo Html::img('iconos2-03.png',"","width='60'") ?></a></li>
-				<li><a href=""><?php echo Html::img('iconos2-01.png',"","width='60'") ?></a><a href=""><?php echo Html::img('iconos2-02.png',"","width='60'") ?></a><a href=""><?php echo Html::img('iconos2-03.png',"","width='60'") ?></a></li>
-				<li><a href=""><?php echo Html::img('iconos2-01.png',"","width='60'") ?></a><a href=""><?php echo Html::img('iconos2-02.png',"","width='60'") ?></a><a href=""><?php echo Html::img('iconos2-03.png',"","width='60'") ?></a></li>
+				<?php foreach ($empresas as $key => $value): ?>
+					<?php if ($value->status): ?>
+						<?php if ($value->status == 'play'): ?>
+							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?play=0"><?php echo Html::img('iconos2-07.png',"","width='60'") ?></a>
+							<?php else: ?>
+							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?play=1"><?php echo Html::img('iconos2-01.png',"","width='60'") ?></a>								
+						<?php endif ?>
+						<?php if ($value->status == 'pause'): ?>
+							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?pause=0"><?php echo Html::img('iconos2-05.png',"","width='60'") ?></a>
+							<?php else: ?>
+							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?pause=1"><?php echo Html::img('iconos2-02.png',"","width='60'") ?></a>		
+						<?php endif ?>
+						<?php if ($value->status == 'stop'): ?>
+							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?stop=0"><?php echo Html::img('iconos2-03.png',"","width='60'") ?></a>
+							<?php else: ?>
+							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?stop=1"><?php echo Html::img('iconos2-06.png',"","width='60'") ?></a>		
+						<?php endif ?>					
+					<?php else: ?>
+							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?play=1"><?php echo Html::img('iconos2-01.png',"","width='60'") ?></a>
+							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?pause=1"><?php echo Html::img('iconos2-02.png',"","width='60'") ?></a>
+							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?stop=1"><?php echo Html::img('iconos2-06.png',"","width='60'") ?></a>
+					<?php endif ?>
+				<?php endforeach ?>
+			
 				
 			</ul>			
 		</div>
 	</div>	
 
 </div>
-<?php View::content() ?>
