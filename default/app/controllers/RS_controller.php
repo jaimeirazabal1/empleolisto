@@ -1,8 +1,15 @@
 <?php
 
 class RSController extends AppController{
-	public function index($company = null){
-
+	public function index(){
+		if (isset($_GET['p'])) {
+			$company = $_GET['p'];
+			View::select("empresa");
+			$this->company = Load::model("company")->find_first("conditions: url='".$company."'");
+			$this->company_fields = Load::model("company_fields")->find_first("conditions: company_id='".$this->company->id."'");
+			$this->company_puesto = Load::model("company_puesto")->find("conditions: company_id='".$this->company->id."'");
+			$this->company_plan = Load::model("company_plan")->find_first("conditions: company_id='".$this->company->id."' and activo='1'","limit: 1","order: id desc");
+		}
 	}
 	public function login(){
         if (Input::hasPost("user","password")){

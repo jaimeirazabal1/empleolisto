@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-01-2017 a las 17:02:37
+-- Tiempo de generación: 16-01-2017 a las 21:19:00
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -64,7 +64,28 @@ CREATE TABLE `company_fields` (
 --
 
 INSERT INTO `company_fields` (`id`, `logo_url`, `bg_color`, `bg_url`, `texto`, `agradecimiento`, `aviso_privacidad`, `company_id`, `created`) VALUES
-(1, 'upload/1484320965_5.jpg', '#000000', 'upload/1484321566_1.jpg', 'jaime Irazabal 16923509                                                                                                                    d', NULL, NULL, 1, '2017-01-13 15:16:35');
+(1, 'upload/1484320965_5.jpg', '#000000', 'upload/1484321566_1.jpg', 'jaime Irazabal 16923509                                                                                                                    d', 'mi agradecimiento', 'mi aviso de privacidad', 1, '2017-01-13 15:16:35');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `company_perfiles`
+--
+
+CREATE TABLE `company_perfiles` (
+  `id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `sexo` varchar(1) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `edad` int(11) NOT NULL,
+  `telefono1` varchar(20) NOT NULL,
+  `telefono2` varchar(20) NOT NULL,
+  `puesto` varchar(35) NOT NULL,
+  `experiencia` varchar(220) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -99,6 +120,16 @@ CREATE TABLE `company_puesto` (
   `activo` tinyint(1) DEFAULT NULL,
   `company_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `company_puesto`
+--
+
+INSERT INTO `company_puesto` (`id`, `puesto`, `activo`, `company_id`) VALUES
+(3, 'Operador De Linea', 1, 1),
+(4, 'Ventas', 1, 1),
+(5, 'Seguridad', 1, 1),
+(6, 'Seguridad 2', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -139,6 +170,12 @@ ALTER TABLE `company_fields`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `company_perfiles`
+--
+ALTER TABLE `company_perfiles`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `company_plan`
 --
 ALTER TABLE `company_plan`
@@ -171,6 +208,11 @@ ALTER TABLE `company`
 ALTER TABLE `company_fields`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT de la tabla `company_perfiles`
+--
+ALTER TABLE `company_perfiles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `company_plan`
 --
 ALTER TABLE `company_plan`
@@ -179,7 +221,7 @@ ALTER TABLE `company_plan`
 -- AUTO_INCREMENT de la tabla `company_puesto`
 --
 ALTER TABLE `company_puesto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `company_user`
 --
