@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-01-2017 a las 21:19:00
+-- Tiempo de generación: 16-01-2017 a las 21:58:48
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -86,6 +86,13 @@ CREATE TABLE `company_perfiles` (
   `user_id` int(11) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `company_perfiles`
+--
+
+INSERT INTO `company_perfiles` (`id`, `company_id`, `nombre`, `sexo`, `email`, `edad`, `telefono1`, `telefono2`, `puesto`, `experiencia`, `user_id`, `created`) VALUES
+(1, 1, 'Jaime Irazabal', 'M', 'jaimeirazabal1@gmail.com', 30, '04143299925', '02123834952', 'Operador De Linea', 'asopdkaposkd opaskd paoskdapo dkapsokd paoskd poas', 10, '2017-01-16 20:58:33');
 
 -- --------------------------------------------------------
 
@@ -211,7 +218,7 @@ ALTER TABLE `company_fields`
 -- AUTO_INCREMENT de la tabla `company_perfiles`
 --
 ALTER TABLE `company_perfiles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `company_plan`
 --
