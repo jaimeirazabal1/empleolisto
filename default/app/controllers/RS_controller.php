@@ -79,6 +79,8 @@ class RSController extends AppController{
 	}
 	public function miPerfil(){
 		$company = Load::model("company")->find_first("conditions: company_user = '".Auth::get('id')."' ");
+		$this->company = $company;
+		$this->puestos = Load::model("company_puesto")->find("conditions: company_id = '".$company->id."' ");
 		$this->company_fields = Load::model("company_fields")->find_first("conditions: company_id = '".$company->id."' ");
 		if (Input::hasPost("password") and !empty($_POST['password'])) {
 			$company_user = Load::model("company_user")->find(Auth::get("id"));
