@@ -161,7 +161,7 @@
 		<div class="col-md-4"></div>
 	</div>
 	<div class="row">
-		<div class="col-md-1"></div>
+		<div class="col-sm-1"></div>
 		<div class="col-md-10">
 			<table class="table">
 				<thead>
@@ -188,7 +188,7 @@
 						<td>
 						<?php if ($perfiles[$i]->sexo == "M"): ?>
 						<?php echo Html::img("RECRUITMENT STATION/iconos h y m-01.png","","class='iconos_sexo'") ?><?php echo Html::img("RECRUITMENT STATION/iconos h y m-04.png","","class='iconos_sexo'") ?>
-							<?php else: ?>
+						<?php else: ?>
 <?php echo Html::img("RECRUITMENT STATION/iconos h y m-03.png","","class='iconos_sexo'") ?><?php echo Html::img("RECRUITMENT STATION/iconos h y m-02.png","","class='iconos_sexo'") ?>
 
 						<?php endif ?>
@@ -199,24 +199,76 @@
 								
 							<ul class="lightSlider">
 							  <li><a href="">&nbsp;</a></li>
-							  <li><a href=""><?php echo Html::img('RECRUITMENT STATION/iconos2-02.png') ?></a></li>
-							  <li><a href=""><?php echo Html::img('RECRUITMENT STATION/iconos2-03.png') ?></a></li>
-							  <li><a href=""><?php echo Html::img('RECRUITMENT STATION/iconos2-04.png') ?></a></li>
-							  <li><a href=""><?php echo Html::img('RECRUITMENT STATION/iconos2-05.png') ?></a></li>
-							  <li><a href=""><?php echo Html::img('RECRUITMENT STATION/iconos2-06.png') ?></a></li>
-							  <li><a href=""><?php echo Html::img('RECRUITMENT STATION/iconos2-07.png') ?></a></li>
-							  <li><a href=""><?php echo Html::img('RECRUITMENT STATION/iconos2-08.png') ?></a></li>
-							  <li><a href="">&nbsp;</a></li>
+
+							  <?php if ($perfiles[$i]->no_aplica): ?>
+							  	<li><a href="#" class="no_aplica" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-02.png') ?></a></li>
+								<?php else: ?>
+									<li><a href="#" class="no_aplica" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-02.png') ?></a></li>
+							  <?php endif ?>
+
+
+							  <?php if ($perfiles[$i]->aplico): ?>
+							  	<li><a href="#" class="aplico" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-03.png') ?></a></li>
+								<?php else: ?>
+									<li><a href="#" class="aplico" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-03.png') ?></a></li>
+							  <?php endif ?>
+
+							  <?php if ($perfiles[$i]->llamar): ?>
+							  	<li><a href="#" class="llamar" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-01.png') ?></a></li>
+								<?php else: ?>
+									<li><a href="#" class="llamar" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-01.png') ?></a></li>
+							  <?php endif ?>
+
+
+							  <?php if ($perfiles[$i]->entrevista1): ?>
+							  	<li><a href="#" class="entrevista1" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-04.png') ?></a></li>
+								<?php else: ?>
+									<li><a href="#" class="entrevista1" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-04.png') ?></a></li>
+							  <?php endif ?>
+
+
+							  <?php if ($perfiles[$i]->entrevista2): ?>
+							  	<li><a href="#" class="entrevista2" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-05.png') ?></a></li>
+								<?php else: ?>
+									<li><a href="#" class="entrevista2" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-05.png') ?></a></li>
+							  <?php endif ?>
+
+							  <?php if ($perfiles[$i]->medico): ?>
+							  	<li><a href="#" class="medico" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-06.png') ?></a></li>
+								<?php else: ?>
+									<li><a href="#" class="medico" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-06.png') ?></a></li>
+							  <?php endif ?>
+
+							  <?php if ($perfiles[$i]->documentos): ?>
+							  	<li><a href="#" class="documentos" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-08.png') ?></a></li>
+								<?php else: ?>
+									<li><a href="#" class="documentos" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-08.png') ?></a></li>
+							  <?php endif ?>
+
+
+							  <?php if ($perfiles[$i]->contrato): ?>
+							  	<li><a href="#" class="contrato" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-07.png') ?></a></li>
+								<?php else: ?>
+									<li><a href="#" class="contrato" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-07.png') ?></a></li>
+							  <?php endif ?>
+
+							  <li><a href="#">&nbsp;</a></li>
 
 							</ul>
 							</div>							  
 						</td>
-						<td>Comentarios <?php echo $i ?></td>
+						<td style="width:200px" contenteditable="true" class="comentarios" id="<?php echo $perfiles[$i]->id ?>">
+							<?php if (!$perfiles[$i]->comentario): ?>
+								Deja un Comentario
+							<?php else: ?>
+								<?php echo $perfiles[$i]->comentario ?>
+							<?php endif ?>
+						</td>
 					</tr>
 				<?php endfor; ?>
 			</table>
 		</div>
-		<div class="col-md-1"></div>
+		<div class="col-sm-1"></div>
 		
 	</div>		
 
@@ -236,6 +288,51 @@ $(document).ready(function(){
     prevHtml : '<span class="glyphicon glyphicon-chevron-left"></span>',
     nextHtml : '<span class="glyphicon glyphicon-chevron-right"></span>'
 	});
+	$("body").on("blur",".comentarios",function(){
+		console.log("EDITO!")
+		var text = $.trim($(this).text());
+		var este = $(this);
+		$.ajax({
+			url:"<?php echo PUBLIC_PATH ?>company_perfiles/editarComentario/"+$(this).attr("id"),
+			type:"POST",
+			data:{comentario:text},
+			dataType:"json",
+			success:function(r){
+				if (r.correcto === false) {
+					alert("Ocurrio un error guardando el comentario!");
+					este.text("Deja un Comentario");
+				}
+			}
+		});
+	})
+	$("body").on("click",".lightSlider a",function(e){
+		e.preventDefault();
+		var campo = $(this).attr("class");
+		var accion = $(this).attr("accion");
+		var id = $(this).attr("id");
+		var este = $(this);
+		$.ajax({
+			url:"<?php echo PUBLIC_PATH ?>company_perfiles/cambiar/"+campo+"/"+accion+"/"+id,
+			dataType:"json",
+			success:function(r){
+				console.log(r)
+				if (r.correcto ===  true) {
+					este.html(r.imagen);
+					console.log(accion,typeof accion)
+					if (accion == '1') {
+						este.attr("accion",'0')
+
+					}else{
+
+						este.attr("accion",'1')
+					}
+				}else{
+					alert("ocurrio un error")
+				}
+			}
+		})
+	})
+	
 })
 </script>
 <style type="text/css">
