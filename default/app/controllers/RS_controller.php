@@ -100,6 +100,30 @@ class RSController extends AppController{
 			$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' ");
 		}
 		$this->puestos = Load::model("company_perfiles")->find("conditions: company_id = '".$company->id."'","columns: puesto","group: puesto");
+
+		if (isset($_GET['excel']) and $_GET['excel'] == 1) {
+			if (isset($_GET['puesto']) and $_GET['puesto']) {
+				$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' and puesto = '".$_GET['puesto']."' ");
+			}else{
+
+				$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' ");
+			}
+			// output headers so that the file is downloaded rather than displayed
+			header('Content-Type: text/csv; charset=utf-8');
+			header('Content-Disposition: attachment; filename=data.csv');
+
+			// create a file pointer connected to the output stream
+			$output = fopen('php://output', 'w');
+
+			// output the column headings
+			fputcsv($output, array('id','nombre', 'sexo', 'email','edad','telefono1','telefono2','puesto','experiencia','comentario','no_aplica','aplico','llamar','entrevista1','entrevista2','medico','documentos','contrato','created'));
+
+		
+			$rows = $this->perfiles;
+
+			// loop over the rows, outputting them
+			while ($row = mysql_fetch_assoc($rows)) fputcsv($output, $row);
+		}
 	}
 	public function verEmpresas(){
 		$this->empresas = Load::model("company")->find();
