@@ -144,12 +144,16 @@
 			<form class="form-inline">
 			  <div class="form-group">
 			    <label style="color:white;font-weight: 100">Puesto</label>
-			    <select name="" class="form-control" id="">
-			    	<option value="">Puesto 1</option>
-			    	<option value="">Puesto 2</option>
-			    	<option value="">Puesto 3</option>
-			    	<option value="">Puesto 4</option>
-			    	<option value="">Puesto 5</option>
+			    <select name="puesto" onChange="$(this).parent().parent().submit()" class="form-control" id="">
+			    	<option value="">Seleccione</option>
+			    	<?php foreach ($puestos as $key => $value): ?>
+			    		<?php if (isset($_GET['puesto']) and $_GET['puesto'] == $value->puesto): ?>
+				    		<option value="<?php echo $value->puesto ?>" selected><?php echo $value->puesto ?></option>
+
+			    		<?php else: ?>
+				    		<option value="<?php echo $value->puesto ?>"><?php echo $value->puesto ?></option>
+			    		<?php endif ?>
+			    	<?php endforeach ?>
 			    </select>
 			  </div>
 			  <div class="form-group">

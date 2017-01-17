@@ -82,14 +82,24 @@ class RSController extends AppController{
 		}
 	}
 	public function verPerfiles(){
-		$company = Load::model("company")->find_first();
-		$this->company = $company;
-		$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' ");
+		if (isset($_GET['puesto']) and $_GET['puesto']) {
+			$this->perfiles = Load::model('company_perfiles')->find("conditions:  puesto = '".$_GET['puesto']."' ");
+		}else{
+
+			$this->perfiles = Load::model('company_perfiles')->find();
+		}
+		$this->puestos = Load::model("company_perfiles")->find("columns: puesto","group: puesto");
 	}
 	public function misPerfiles(){
 		$company = Load::model("company")->find_first("conditions: company_user = '".Auth::get('id')."' ");
 		$this->company = $company;
-		$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' ");
+		if (isset($_GET['puesto']) and $_GET['puesto']) {
+			$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' and puesto = '".$_GET['puesto']."' ");
+		}else{
+
+			$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' ");
+		}
+		$this->puestos = Load::model("company_perfiles")->find("conditions: company_id = '".$company->id."'","columns: puesto","group: puesto");
 	}
 	public function verEmpresas(){
 		$this->empresas = Load::model("company")->find();
