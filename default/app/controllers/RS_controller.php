@@ -82,10 +82,14 @@ class RSController extends AppController{
 		}
 	}
 	public function verPerfiles(){
-
+		$company = Load::model("company")->find_first();
+		$this->company = $company;
+		$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' ");
 	}
 	public function misPerfiles(){
-
+		$company = Load::model("company")->find_first("conditions: company_user = '".Auth::get('id')."' ");
+		$this->company = $company;
+		$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' ");
 	}
 	public function verEmpresas(){
 		$this->empresas = Load::model("company")->find();
