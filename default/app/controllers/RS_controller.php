@@ -89,6 +89,32 @@ class RSController extends AppController{
 			$this->perfiles = Load::model('company_perfiles')->find();
 		}
 		$this->puestos = Load::model("company_perfiles")->find("columns: puesto","group: puesto");
+		if (isset($_GET['excel']) and $_GET['excel'] == 1) {
+			if (isset($_GET['puesto']) and $_GET['puesto']) {
+				$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' and puesto = '".$_GET['puesto']."' ","columns: id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,created");
+			}else{
+
+				$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' ","columns: id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,created");
+			}
+			// output headers so that the file is downloaded rather than displayed
+			header('Content-Type: text/csv; charset=utf-8');
+			header('Content-Disposition: attachment; filename=data_'.date('y_m_d_H_i_s').'.csv');
+
+			// create a file pointer connected to the output stream
+			$output = fopen('php://output', 'w');
+
+			// output the column headings
+			fputcsv($output, array('id','nombre', 'sexo', 'email','edad','telefono1','telefono2','puesto','experiencia','comentario','no_aplica','aplico','llamar','entrevista1','entrevista2','medico','documentos','contrato','created'));
+
+		
+			$rows = $this->perfiles;
+
+			// loop over the rows, outputting them
+			foreach ($rows as $key => $value) {
+				 fputcsv($output, (array)json_decode(json_encode($value)));
+			}
+			die;
+		}
 	}
 	public function misPerfiles(){
 		$company = Load::model("company")->find_first("conditions: company_user = '".Auth::get('id')."' ");
@@ -103,14 +129,14 @@ class RSController extends AppController{
 
 		if (isset($_GET['excel']) and $_GET['excel'] == 1) {
 			if (isset($_GET['puesto']) and $_GET['puesto']) {
-				$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' and puesto = '".$_GET['puesto']."' ");
+				$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' and puesto = '".$_GET['puesto']."' ","columns: id, nombre, sexo, email, edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,created");
 			}else{
 
-				$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' ");
+				$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' ","columns: id, nombre, sexo, email, edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,created");
 			}
 			// output headers so that the file is downloaded rather than displayed
 			header('Content-Type: text/csv; charset=utf-8');
-			header('Content-Disposition: attachment; filename=data.csv');
+			header('Content-Disposition: attachment; filename=data_'.date('y_m_d_H_i_s').'.csv');
 
 			// create a file pointer connected to the output stream
 			$output = fopen('php://output', 'w');
@@ -122,7 +148,10 @@ class RSController extends AppController{
 			$rows = $this->perfiles;
 
 			// loop over the rows, outputting them
-			while ($row = mysql_fetch_assoc($rows)) fputcsv($output, $row);
+			foreach ($rows as $key => $value) {
+				 fputcsv($output, (array)json_decode(json_encode($value)));
+			}
+			die;
 		}
 	}
 	public function verEmpresas(){
