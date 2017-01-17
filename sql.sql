@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-01-2017 a las 21:58:48
+-- Tiempo de generación: 17-01-2017 a las 21:35:06
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -83,7 +83,16 @@ CREATE TABLE `company_perfiles` (
   `telefono2` varchar(20) NOT NULL,
   `puesto` varchar(35) NOT NULL,
   `experiencia` varchar(220) NOT NULL,
+  `comentario` text,
   `user_id` int(11) NOT NULL,
+  `no_aplica` tinyint(1) DEFAULT NULL,
+  `aplico` tinyint(1) DEFAULT NULL,
+  `llamar` tinyint(1) DEFAULT NULL,
+  `entrevista1` tinyint(1) DEFAULT NULL,
+  `entrevista2` tinyint(1) DEFAULT NULL,
+  `medico` tinyint(1) DEFAULT NULL,
+  `documentos` tinyint(1) DEFAULT NULL,
+  `contrato` tinyint(1) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -91,8 +100,9 @@ CREATE TABLE `company_perfiles` (
 -- Volcado de datos para la tabla `company_perfiles`
 --
 
-INSERT INTO `company_perfiles` (`id`, `company_id`, `nombre`, `sexo`, `email`, `edad`, `telefono1`, `telefono2`, `puesto`, `experiencia`, `user_id`, `created`) VALUES
-(1, 1, 'Jaime Irazabal', 'M', 'jaimeirazabal1@gmail.com', 30, '04143299925', '02123834952', 'Operador De Linea', 'asopdkaposkd opaskd paoskdapo dkapsokd paoskd poas', 10, '2017-01-16 20:58:33');
+INSERT INTO `company_perfiles` (`id`, `company_id`, `nombre`, `sexo`, `email`, `edad`, `telefono1`, `telefono2`, `puesto`, `experiencia`, `comentario`, `user_id`, `no_aplica`, `aplico`, `llamar`, `entrevista1`, `entrevista2`, `medico`, `documentos`, `contrato`, `created`) VALUES
+(1, 1, 'Jaime Irazabal', 'M', 'jaimeirazabal1@gmail.com', 30, '04143299925', '02123834952', 'Operador De Linea', 'asopdkaposkd opaskd paoskdapo dkapsokd paoskd poas', 'yo lo único que te digo, es que esta funcionando bien pana', 10, 0, 1, 0, 1, 1, 1, 1, 1, '2017-01-16 20:58:33'),
+(2, 1, 'Participante 2', 'F', 'pepa@gmail.com', 23, '123456', '6545555', 'Ventas', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, nemo. Totam atque perspiciatis impedit, iste sed nostrum non, consectetur similique veniam nihil, dolore repudiandae sapiente perferendis eveniet nemo qui', 'hola', 10, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-01-17 20:20:25');
 
 -- --------------------------------------------------------
 
@@ -218,7 +228,7 @@ ALTER TABLE `company_fields`
 -- AUTO_INCREMENT de la tabla `company_perfiles`
 --
 ALTER TABLE `company_perfiles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `company_plan`
 --
