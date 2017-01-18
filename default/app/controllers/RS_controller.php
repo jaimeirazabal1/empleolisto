@@ -7,6 +7,9 @@ class RSController extends AppController{
 			View::select("empresa");
 			$this->company = Load::model("company")->find_first("conditions: url='".$company."'");
 			if ($this->company) {
+				if (!$this->company->status == "play") {
+					View::select("activar");
+				}
 				$plan = Load::model("company_plan")->find_first("conditions: company_id = '".$this->company->id."' and activo = '1'");
 
 				if (!$plan) {
