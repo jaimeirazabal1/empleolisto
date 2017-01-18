@@ -161,12 +161,12 @@
 						<?php if ($value->status == 'stop'): ?>
 							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?stop=0"><?php echo Html::img('iconos2-03.png',"","width='60'") ?></a>
 							<?php else: ?>
-							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?stop=1"><?php echo Html::img('iconos2-06.png',"","width='60'") ?></a>		
+							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?stop=1" class='eliminar_boton' ><?php echo Html::img('iconos2-06.png',"","width='60'") ?></a>		
 						<?php endif ?>					
 					<?php else: ?>
 							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?play=1"><?php echo Html::img('iconos2-01.png',"","width='60'") ?></a>
 							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?pause=1"><?php echo Html::img('iconos2-02.png',"","width='60'") ?></a>
-							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?stop=1"><?php echo Html::img('iconos2-06.png',"","width='60'") ?></a>
+							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?stop=1" class='eliminar_boton'><?php echo Html::img('iconos2-06.png',"","width='60'") ?></a>
 					<?php endif ?>
 				<?php endforeach ?>
 			
@@ -176,3 +176,18 @@
 	</div>	
 
 </div>
+<script type="text/javascript" src="<?php echo PUBLIC_PATH ?>javascript/md5.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".eliminar_boton").click(function(){
+			pass = prompt("Introduce tu contrasena");
+			$(this).attr("src",$(this).attr("src")+"?i="+$.md5(pass));
+			if (!confirm("Esta Seguro?")) {
+				return false;
+			}else{
+				
+			}
+		});
+	});
+
+</script>

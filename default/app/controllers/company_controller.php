@@ -4,6 +4,7 @@
 class CompanyController extends AppController{
 
 	public function status($id_company){
+		
 		if (Auth::get("role") == "admin") {
 			$company = Load::model("company")->find($id_company);
 			if (isset($_GET['pause'])) {
@@ -29,6 +30,14 @@ class CompanyController extends AppController{
 			}
 			if ($company->update()) {
 				Flash::valid("Status actualizado con éxito!");
+				if (isset($_GET['stop']) and $_GET['stop'] == 1) {
+					if(Load::model("company_perfiles")->delete("company_id='".$company->id."'")){
+						Flash::valid("Perfiles Borrados con exito!");
+					}else{
+						Flash::error("No se pudo borrar los perfiles");
+					}
+
+				}
 			}else{
 				Flash::error("No se pudo actualizar el status");
 			}
