@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-01-2017 a las 21:35:06
+-- Tiempo de generación: 18-01-2017 a las 14:27:09
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -39,7 +39,7 @@ CREATE TABLE `company` (
 --
 
 INSERT INTO `company` (`id`, `company_user`, `url`, `status`, `created`) VALUES
-(1, 10, 'ernest', NULL, '2017-01-13 15:16:35');
+(1, 10, 'ernest', 'stop', '2017-01-13 15:16:35');
 
 -- --------------------------------------------------------
 
@@ -96,14 +96,6 @@ CREATE TABLE `company_perfiles` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `company_perfiles`
---
-
-INSERT INTO `company_perfiles` (`id`, `company_id`, `nombre`, `sexo`, `email`, `edad`, `telefono1`, `telefono2`, `puesto`, `experiencia`, `comentario`, `user_id`, `no_aplica`, `aplico`, `llamar`, `entrevista1`, `entrevista2`, `medico`, `documentos`, `contrato`, `created`) VALUES
-(1, 1, 'Jaime Irazabal', 'M', 'jaimeirazabal1@gmail.com', 30, '04143299925', '02123834952', 'Operador De Linea', 'asopdkaposkd opaskd paoskdapo dkapsokd paoskd poas', 'yo lo único que te digo, es que esta funcionando bien pana', 10, 0, 1, 0, 1, 1, 1, 1, 1, '2017-01-16 20:58:33'),
-(2, 1, 'Participante 2', 'F', 'pepa@gmail.com', 23, '123456', '6545555', 'Ventas', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, nemo. Totam atque perspiciatis impedit, iste sed nostrum non, consectetur similique veniam nihil, dolore repudiandae sapiente perferendis eveniet nemo qui', 'hola', 10, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-01-17 20:20:25');
-
 -- --------------------------------------------------------
 
 --
@@ -123,7 +115,7 @@ CREATE TABLE `company_plan` (
 --
 
 INSERT INTO `company_plan` (`id`, `meses`, `activo`, `company_id`, `created`) VALUES
-(1, 12, 1, 1, '2017-01-13 15:16:35');
+(1, 12, 1, 1, '2015-02-01 15:16:35');
 
 -- --------------------------------------------------------
 
