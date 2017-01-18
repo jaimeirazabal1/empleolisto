@@ -1,0 +1,477 @@
+<?php View::content() ?>
+<style type="text/css">
+	html,body{
+		margin:0px;
+		height:100%;
+		font-family: Century Gothic, sans-serif;
+
+	}
+	header{
+		background-color:#1e96ce;
+		height: 100px;
+		width: 100%;
+		box-shadow: 2px 2px 10px;
+	}
+	.fondo{
+		position: relative;
+		background-image: url("<?php echo PUBLIC_PATH ?>img/RECRUITMENT STATION/fondo_superadmin-06.jpg");
+		background-repeat:no-repeat;
+		width: 100%;
+		background-size:cover;
+	}
+	.logo{
+		padding:0 !important;
+	}
+	header a,header p{
+		color:white;
+		vertical-align: center;
+		line-height: 100px;
+		font-size: 16px;
+	}
+	#titulo_pagina{
+		color:white;
+		font-size: 40px;
+		width: 300px;
+		font-weight: bold;
+		margin-left: 100px;
+	}
+	#titulo_pagina_2{
+		color:white;
+		font-size: 20px;
+		width: 300px;
+		font-weight: bold;
+		margin-left: 100px;
+	}
+	#form_registro{
+		width: 100%;
+	}
+	#form_registro label{
+		font-weight: 100;
+		color: white;
+	}
+	#form_registro input[type="checkbox"]{
+	  -ms-transform: scale(2); /* IE */
+	  -moz-transform: scale(2); /* FF */
+	  -webkit-transform: scale(2); /* Safari and Chrome */
+	  -o-transform: scale(2); /* Opera */
+	  padding: 10px;
+	}
+	.checks{
+		  -ms-transform: scale(2); /* IE */
+		  -moz-transform: scale(2); /* FF */
+		  -webkit-transform: scale(2); /* Safari and Chrome */
+		  -o-transform: scale(2); /* Opera */
+		  padding: 10px;
+		  border:1px solid white;
+		  background-color: red;
+	}
+	.checks_text{
+		text-align: center;
+		color:white;
+	}
+	.checkboxes{
+		margin-top: 20px;
+	}
+	.btn_crear_empresa{
+		color:white;
+		background-color: #f3910c;
+		border:0;
+		padding:10px 40px 10px 40px;
+		font-size: 25px;
+		box-shadow: 3px 3px 5px grey;
+	}
+	.fondo_izquierdo{
+		background: rgba(255, 255, 255, 0.5);
+		height: 1400px;
+		opacity: 0.5;
+		border-right: 1px solid white;
+	}
+	.fondo_izquierdo ul,.fondo_derecho ul{
+		margin-top:100px;
+		list-style: none;
+	}
+	.fondo_izquierdo ul li{
+		color:grey;
+		text-align: right;
+	}
+	.fondo_derecho ul li{
+		color:grey;
+		text-align: right;
+		margin-bottom:80px;		
+	}
+	.logo_empresa{
+		max-height: 140px;
+	}
+	#fondo_perfil{
+		width: 100px;
+		height: 100px;
+		background-color: <?php echo $company_fields->bg_color ?>;
+		margin: auto;
+		padding:6px;
+	}
+	.btn-menos,.btn-mas{
+		border-radius: 10px;
+		border:0px;
+		color:white;
+		width: 20px;
+		height: 20px;
+		font-weight: bold;
+		font-size: 14px;
+	}
+	.btn-menos:active,.btn-mas:active{
+		box-shadow: 2px 2px 6px grey;
+		border:1px solid grey;
+	}
+	.btn-menos{
+		background-color: red;
+	}
+	.btn-mas{
+		background-color: green;
+	}
+	.cajero_div{
+		color:black;
+		position: relative;
+	}
+	
+	.cajero_box{
+
+		font-size: 12px;
+		color:white;
+		border:2px solid #a6a6a6;
+		padding:8px;
+		background-color: #7f7f7f;
+	}
+	.puestos_div{
+		padding:6px;
+		background-color: white;
+		height: 110px;
+		box-shadow: 2px 2px 10px grey;
+		overflow-x: scroll;
+	}
+	.puestos_div label{
+		font-size: 10px;
+		margin-bottom: 0px;
+	}
+	.bg_url{
+		max-height: 140px;
+	}
+	.label_puesto{
+		margin:0px !important;
+		padding:0px !important;
+	}
+	.label_puesto:hover{
+		background-color: #EDEDED;
+	}
+	.well{
+		background-color: rgba(100,100,100,0.3);
+	}
+</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#cantidad_palabras").text(140-$("#texto").val().length+" Caracteres");
+
+		$(".bg_url").click(function(){
+			window.open($(this).attr("src"))
+		});
+		$(".logo_empresa").click(function(){
+			window.open($(this).attr("src"))
+		});
+		$("#texto").keyup(function(){
+			$("#cantidad_palabras").text(140-$(this).val().length+" Caracteres");
+		})
+		$("body").on("keyup","#input_nuevo_puesto",function(e){
+			console.log(e.keyCode)
+		})
+		$("body").on("click",".label_puesto input[type='checkbox']",function(){
+			console.log($(this).hasClass("puesto_fijo"))
+			if ($(this).hasClass("puesto_fijo")) {
+
+			}else{
+
+				var id = $(this).attr("id");
+				if (id) {
+
+					$.ajax({
+						url:"<?php echo PUBLIC_PATH ?>company_puesto/ac_des/"+id,
+						dataType:"json",
+						success:function(r){
+							if (r === true) {
+
+							}else{
+								alert("Ocurrió un error, Se restablecerá el valor");
+								location.reload(true);
+
+							}
+						}
+					})
+				}else{
+					$(".puesto_fijo").click();
+				}
+
+			}
+		});
+		$("body").on("click",".close",function(){
+			var id = $(this).attr("id");
+			var este = $(this);
+			if (confirm("Esta Seguro?")) {
+
+				if (id) {
+
+					$.ajax({
+						url:"<?php echo PUBLIC_PATH ?>company_puesto/eliminar/"+id,
+						dataType:"json",
+						success:function(r){
+							console.log(r)
+							if (r === true) {
+								este.parent().remove();
+							}else{
+								alert("Ocurrió un error!");
+							}
+						}
+					})
+				}
+			}
+		});
+		$("body").on("click",".puesto_fijo",function(){
+			var valor = $(this).attr("puesto");
+			var checked = $(this).is(":checked");
+			if (valor) {
+				$.ajax({
+					url:"<?php echo PUBLIC_PATH ?>company_puesto/agregar/<?php echo $company->id ?>/"+valor+"/1/"+checked,
+					dataType:"json",
+					success:function(r){
+						console.log(r)
+						if (typeof r.mensaje != "undefined") {
+							alert(r.mensaje);
+
+						}else{
+							if (r.correcto === true) {
+								console.log("Agregó!");
+								
+							}else{
+								alert("Ocurrió un error!");
+								location.reload(true);
+
+							}
+						}
+					}
+				})
+			}
+		})
+		$("body").on("click",".btn-mas",function(e){
+			e.preventDefault();
+			var valor = $("#input_nuevo_puesto").val();
+			
+			if (valor) {
+				$.ajax({
+					url:"<?php echo PUBLIC_PATH ?>company_puesto/agregar/<?php echo $company->id ?>/"+valor,
+					dataType:"json",
+					success:function(r){
+						console.log(r)
+						if (typeof r.mensaje != "undefined") {
+							alert(r.mensaje);
+							$("#input_nuevo_puesto").val("");
+
+						}else{
+							if (r.correcto === true) {
+								console.log("Agregó!");
+								agrego = false;
+								$(".puestos_div").find(".col-md-3").each(function(i){
+									cantidad = $(this).find("label").length;
+									if (cantidad === 0) {
+										$(this).remove();
+									}
+								})
+
+								$(".puestos_div").find(".col-md-3").each(function(i){
+									cantidad = $(this).find("label").length;
+
+									if (cantidad < 4) {
+										str = $("#input_nuevo_puesto").val().toLowerCase().replace(/\b[a-z]/g, function(letter) {
+										    return letter.toUpperCase();
+										});
+										var boton_cerrar = '<button type="button" class="close" data-dismiss="alert" aria-label="Close" id="'+r.last_id+'"> <span aria-hidden="true" >&times;</span> </button>';
+										$(this).append("<div class='label_puesto'><label><input id='"+r.last_id+"' type=\"checkbox\">&nbsp"+str+"</label>"+boton_cerrar+"</div>");
+										agrego = true;
+									}
+								})
+								if (!agrego) {
+									str = $("#input_nuevo_puesto").val().toLowerCase().replace(/\b[a-z]/g, function(letter) {
+										    return letter.toUpperCase();
+									});
+									var boton_cerrar = '<button type="button" class="close" data-dismiss="alert" aria-label="Close" id="'+r.last_id+'"> <span aria-hidden="true" >&times;</span> </button>';
+									$(".puestos_div .row").append("<div class='col-md-3 text-left'>"+
+											"<div class='label_puesto'><label><input id='"+r.last_id+"' type='checkbox'>&nbsp"+str+"</label>"+boton_cerrar+
+										"</div>")
+								}
+								$("#input_nuevo_puesto").val("");
+								$("#input_nuevo_puesto").focus();
+							}else{
+								alert("Ocurrió un error!");
+							}
+						}
+					}
+				})
+			}
+		})
+	})
+</script>
+<div class="fondo">
+
+	<header>
+	    <div class="row">
+	      <div class="col-md-3 col-xs-3 logo">
+	        <h1>empleolisto <br><small>Recruitment Station</small></h1>
+	      </div>
+	      <div class="col-md-6 col-xs-6">
+	        <div class="row">
+	          <div class="col-md-4 col-xs-4">
+	          </div>
+	          <div class="col-md-4 col-xs-4">
+	          <?php echo Html::link("RS/misPerfiles","Ver perfiles") ?>
+	          </div>
+	       
+	        </div>
+	      </div>
+	      <div class="col-md-3 col-xs-3">
+	        <div class="pull-right div_inicio_sesion">
+	          <?php echo Html::link("RS/logout","Log out") ?>
+	        </div>
+	        <div class="clearfix"></div>
+	      </div>
+	      <div class="clearfix"></div>
+	    </div>
+	</header>
+	<br>
+	<div class="container">
+		<?php echo Form::openMultipart() ?>
+		<div class="row ">
+			<div class="col-md-4 well">
+				<div class="form-group">
+					<center>
+						<?php echo Html::img($company_fields->logo_url,'TU Logo','class="img-thumbnail logo_empresa"') ?>
+					</center>
+					<br>
+					<label>Logo de la empresa</label>
+					<p><?php echo Form::file('logo') ?></p>
+				</div>
+			</div>
+			<div class="col-md-8 well">
+				<div class="form-group">
+					<center>
+						<?php echo Html::img($company_fields->bg_url,"",'class="img-thumbnail bg_url"') ?>
+					</center>
+					<br>
+					<label>Imagen de la empresa</label>
+					<p><?php echo Form::file('logo_fondo') ?></p>
+				</div>
+			</div>
+			
+		</div>
+		<div class="row ">
+			<div class="col-md-12 well">
+			<label>Puestos</label>
+					<div class="row">
+						<div class="col-md-2"></div>
+						<div class="col-md-6 puestos_div">
+							<div class="row">
+								<div class="col-md-3 text-left">
+									<div class="label_puesto"><label><input  class='puesto_fijo' <?php echo Load::model("company_puesto")->puesto_comun($company->id,"Cajero") ?> puesto="Cajero" type="checkbox">&nbsp;Cajero</label></div>
+									<div class="label_puesto"><label><input  class='puesto_fijo' <?php echo Load::model("company_puesto")->puesto_comun($company->id,"Limpieza") ?> puesto="Limpieza" type="checkbox">&nbsp;Limpieza</label></div>
+									<div class="label_puesto"><label><input  class='puesto_fijo' <?php echo Load::model("company_puesto")->puesto_comun($company->id,"Chofer") ?> puesto="Chofer" type="checkbox">&nbsp;Chofer</label></div>
+									<div class="label_puesto"><label><input  class='puesto_fijo' <?php echo Load::model("company_puesto")->puesto_comun($company->id,"Operador de Linea") ?> puesto="Operador de Linea" type="checkbox">&nbsp;Operador de Linea</label></div>
+								</div>
+								<div class="col-md-3 text-left">
+									<div class="label_puesto"><label><input  class='puesto_fijo' <?php echo Load::model("company_puesto")->puesto_comun($company->id,"Cocina") ?> puesto="Cocina" type="checkbox">&nbsp;Cocina</label></div>
+									<div class="label_puesto"><label><input  class='puesto_fijo' <?php echo Load::model("company_puesto")->puesto_comun($company->id,"Mesero") ?> puesto="Mesero" type="checkbox">&nbsp;Mesero</label></div>
+									<div class="label_puesto"><label><input  class='puesto_fijo' <?php echo Load::model("company_puesto")->puesto_comun($company->id,"Chef") ?> puesto="Chef" type="checkbox">&nbsp;Chef</label></div>
+									<div class="label_puesto"><label><input  class='puesto_fijo' <?php echo Load::model("company_puesto")->puesto_comun($company->id,"Ventas") ?> puesto="Ventas" type="checkbox">&nbsp;Ventas</label></div>
+								</div>
+								<div class="col-md-3 text-left">
+									<div class="label_puesto"><label><input  class='puesto_fijo' <?php echo Load::model("company_puesto")->puesto_comun($company->id,"Promotor") ?> puesto="Promotor" type="checkbox">&nbsp;Promotor</label></div>
+									<div class="label_puesto"><label><input  class='puesto_fijo' <?php echo Load::model("company_puesto")->puesto_comun($company->id,"Barista") ?> puesto="Barista" type="checkbox">&nbsp;Barista</label></div>
+									<div class="label_puesto"><label><input  class='puesto_fijo' <?php echo Load::model("company_puesto")->puesto_comun($company->id,"Bartender") ?> puesto="Bartender" type="checkbox">&nbsp;Bartender</label></div>
+									<div class="label_puesto"><label><input  class='puesto_fijo' <?php echo Load::model("company_puesto")->puesto_comun($company->id,"Seguridad") ?> puesto="Seguridad" type="checkbox">&nbsp;Seguridad</label></div>
+								</div>
+								<?php if (count($puestos)): ?>
+									<div class="col-md-3 text-left">
+									<?php $counter = 0; ?>
+									<?php foreach ($puestos as $key => $value): ?>
+											<?php $puestos = array("cajero","limpieza","chofer",'operador_de_linea',"cocina","mesero","chef","ventas","promotor","barista","bartender","seguridad");?>
+										<?php if (!in_array(str_replace(" ","_",strtolower($value->puesto)), $puestos)): ?>
+												
+											
+											<?php if ($value->activo): ?>
+												<?php $checked = "checked='checked'" ?>
+											<?php else: ?>
+												<?php $checked = "" ?>
+											<?php endif ?>
+											<?php $id = "id='".$value->id."'" ?>
+										<?php $boton_cerrar = '<button type="button" class="close" '.$id.' data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>'; ?>
+											<?php if ($counter % 4 != 0): ?>
+												<div class="label_puesto"><label><input id="<?php echo $value->id ?>" <?php echo $checked ?> type="checkbox">&nbsp;<?php echo ucwords($value->puesto) ?></label><?php echo $boton_cerrar ?></div>
+											<?php else: ?>
+												</div>
+												<div class="col-md-3 text-left">
+													<div class="label_puesto"><label><input id="<?php echo $value->id ?>" <?php echo $checked ?> type="checkbox">&nbsp;<?php echo ucwords($value->puesto) ?></label><?php echo $boton_cerrar ?></div>
+											<?php endif ?>
+											<?php $counter++; ?>
+										<?php endif ?>
+									<?php endforeach ?>
+									</div>
+								<?php endif ?>
+							</div>
+							
+						</div>
+						<div class="col-md-3 cajero_div ">
+								Agregar: <span class='cajero_box'><input type="text"  id="input_nuevo_puesto" style="color:grey" name="nuevo_puesto"> <button class="btn-mas">+</button></span>
+						</div>
+						<div class="col-md-1"></div>
+					</div>
+			</div>
+		</div>
+		<div class="row well">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label>Texto</label>
+
+							<?php echo Form::textarea("texto","class='form-control'",$company_fields->texto) ?>
+							
+						
+							<span id="cantidad_palabras" style="font-size: 9px;color:black;">140 caracteres</span>
+				</div>
+			</div>
+		</div>
+		<div class="row well">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label>Agradecimiento</label>
+					<?php echo Form::textarea("agradecimiento","class='form-control' rows='4'",$company_fields->agradecimiento) ?>
+				</div>
+			</div>
+		</div>
+		<div class="row well">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label>Aviso de Privacidad</label>
+					<?php echo Form::textarea("aviso_privacidad","class='form-control' rows='4'",$company_fields->aviso_privacidad) ?>
+				</div>
+			</div>
+		</div>
+		<div class="row well">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label>Cambio de Password</label>
+					<input type="text" class="form-control" name="password" placeholder="Cambiar Contraseña">
+				</div>
+			</div>
+		</div>
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<button type="submit" class="btn_crear_empresa">Guardar</button>
+				</div>
+			</div>
+			<br>
+		<?php echo Form::close() ?>
+	</div>
+</div>

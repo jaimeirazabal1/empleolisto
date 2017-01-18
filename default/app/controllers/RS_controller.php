@@ -266,6 +266,89 @@ class RSController extends AppController{
 		$this->company_fields = Load::model("company_fields")->find_first("conditions: company_id = '".$company->id."' ");
 
 	}
+	public function miPerfil2(){
+		$company = Load::model("company")->find_first("conditions: company_user = '".Auth::get('id')."' ");
+		$this->company = $company;
+		$this->puestos = Load::model("company_puesto")->find("conditions: company_id = '".$company->id."' ");
+		$this->company_puesto = Load::model("company_puesto")->find("conditions: company_id='".$company->id."' and activo='1'");
+		$this->company_fields = Load::model("company_fields")->find_first("conditions: company_id = '".$company->id."' ");
+		if (Input::hasPost("password") and !empty($_POST['password'])) {
+			$company_user = Load::model("company_user")->find(Auth::get("id"));
+			$company_user->password = md5(Input::post("password"));
+			if ($company_user->update()) {
+				Flash::valid("Contraseña cambiada con éxito!");
+			}else{
+				Flash::error("No se pudo Cambiar la contraseña!");
+			}
+		}
+		
+		if (isset($_FILES['logo']) and $_FILES['logo']['size'] != 0) {
+	
+			$_FILES['logo']['name'] = time()."_".$_FILES['logo']['name'];
+            $archivo = Upload::factory('logo', 'image'); 
+            $archivo->setExtensions(array('jpg', 'png', 'gif'));//le asignamos las extensiones a permitir
+            if ($archivo->isUploaded()) {
+                if ($archivo->save()) {
+                    Flash::valid('Imagen subida correctamente...!!!');
+                    $company_fields = Load::model("company_fields")->find_first("conditions: company_id = '".$company->id."' ");
+                    $company_fields->logo_url = "upload/".$_FILES['logo']['name'];
+                    if (!$company_fields->update()) {
+                    	Flash::error("Ocurrió un error actualizando tu compañía");
+                    }
+                }
+            }else{
+                    Flash::warning('No se ha Podido Subir la imagen...!!!');
+            }
+		}
+		if (isset($_FILES['logo_fondo']) and $_FILES['logo_fondo']['size'] != 0) {
+	
+			$_FILES['logo_fondo']['name'] = time()."_".$_FILES['logo_fondo']['name'];
+            $archivo = Upload::factory('logo_fondo', 'image'); 
+            $archivo->setExtensions(array('jpg', 'png', 'gif'));//le asignamos las extensiones a permitir
+            if ($archivo->isUploaded()) {
+                if ($archivo->save()) {
+                    Flash::valid('Imagen subida correctamente...!!!');
+                    $company_fields = Load::model("company_fields")->find_first("conditions: company_id = '".$company->id."' ");
+                    $company_fields->bg_url = "upload/".$_FILES['logo_fondo']['name'];
+                    if (!$company_fields->update()) {
+                    	Flash::error("Ocurrió un error actualizando tu compañía");
+                    }
+                }
+            }else{
+                    Flash::warning('No se ha Podido Subir la imagen...!!!');
+            }
+		}
+		if (Input::hasPost("color")) {
+			$company_fields = Load::model("company_fields")->find_first("conditions: company_id = '".$company->id."' ");
+            $company_fields->bg_color = Input::post("color");
+            if (!$company_fields->update()) {
+                Flash::error("Ocurrió un error actualizando el color de fondo de su página");
+            }			
+		}
+		if (Input::hasPost("texto")) {
+			$company_fields = Load::model("company_fields")->find_first("conditions: company_id = '".$company->id."' ");
+            $company_fields->texto = Input::post("texto");
+            if (!$company_fields->update()) {
+                Flash::error("Ocurrió un error actualizando el texto de fondo de su página");
+            }			
+		}
+		if (Input::hasPost("agradecimiento")) {
+			$company_fields = Load::model("company_fields")->find_first("conditions: company_id = '".$company->id."' ");
+            $company_fields->agradecimiento = Input::post("agradecimiento");
+            if (!$company_fields->update()) {
+                Flash::error("Ocurrió un error actualizando el agradecimiento de fondo de su página");
+            }			
+		}
+		if (Input::hasPost("aviso_privacidad")) {
+			$company_fields = Load::model("company_fields")->find_first("conditions: company_id = '".$company->id."' ");
+            $company_fields->aviso_privacidad = Input::post("aviso_privacidad");
+            if (!$company_fields->update()) {
+                Flash::error("Ocurrió un error actualizando el aviso privacidad de fondo de su página");
+            }			
+		}
+		$this->company_fields = Load::model("company_fields")->find_first("conditions: company_id = '".$company->id."' ");
+
+	}
 	public function nuevoPerfil(){
 
 	}
