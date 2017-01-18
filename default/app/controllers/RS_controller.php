@@ -96,10 +96,10 @@ class RSController extends AppController{
 		$this->puestos = Load::model("company_perfiles")->find("columns: puesto","group: puesto");
 		if (isset($_GET['excel']) and $_GET['excel'] == 1) {
 			if (isset($_GET['puesto']) and $_GET['puesto']) {
-				$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' and puesto = '".$_GET['puesto']."' ","columns: id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,created");
+				$this->perfiles = Load::model('company_perfiles')->find("conditions:  puesto = '".$_GET['puesto']."' ","columns: id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,created");
 			}else{
 
-				$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' ","columns: id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,created");
+				$this->perfiles = Load::model('company_perfiles')->find("columns: id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,created");
 			}
 			// output headers so that the file is downloaded rather than displayed
 			header('Content-Type: text/csv; charset=utf-8');

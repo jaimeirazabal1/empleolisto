@@ -180,12 +180,8 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(".eliminar_boton").click(function(){
-			pass = prompt("Introduce tu contrasena");
-			$(this).attr("src",$(this).attr("src")+"?i="+$.md5(pass));
-			if (!confirm("Esta Seguro?")) {
+			if (!confirm("Está seguro?")) {
 				return false;
-			}else{
-				
 			}
 		});
 	});
