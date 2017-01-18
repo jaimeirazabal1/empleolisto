@@ -89,8 +89,11 @@
 <div class="container">
 <br>
 	<div class=" text-center">
+	<?php if (isset($mensaje)): ?>
+		<h2><?php echo $mensaje ?>,</h2>
+	<?php endif ?>
   <h2>Consulta EmpleoListo para renovar tu suscripción</h2>
-
+	
   <br>
   <p><a class="btn btn-link btn-lg" href="mailto:contacto@empleolisto.com.mx" role="button">contacto@empleolisto.com.mx</a></p>
 </div>

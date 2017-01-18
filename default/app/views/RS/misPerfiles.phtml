@@ -141,7 +141,9 @@
 		<div class="col-md-4"></div>
 		<div class="col-md-4 text-center">
 			<br>
-
+			<?php if (count($perfiles)): ?>
+				
+			
 			<form class="form-inline">
 			  <div class="form-group">
 			    <label style="color:white;font-weight: 100">Puesto</label>
@@ -161,6 +163,7 @@
 			    <button class="btn btn-default" name="excel" value="1">Descargar</button>
 			  </div>
 			</form>
+			<?php endif ?>
 			<br>
 		</div>
 		<div class="col-md-4"></div>
@@ -168,6 +171,9 @@
 	<div class="row">
 		<div class="col-md-1"></div>
 		<div class="col-md-10">
+			<?php if (count($perfiles)): ?>
+				
+			
 			<table class="table">
 				<thead>
 					<th>Nombre</th>
@@ -272,6 +278,11 @@
 					</tr>
 				<?php endfor; ?>
 			</table>
+		<?php else: ?>
+			<center>
+				<h3>No se Encontraron Registros</h3>
+			</center>
+			<?php endif ?>
 		</div>
 		<div class="col-md-1"></div>
 		

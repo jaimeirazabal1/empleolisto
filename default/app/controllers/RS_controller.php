@@ -7,6 +7,25 @@ class RSController extends AppController{
 			View::select("empresa");
 			$this->company = Load::model("company")->find_first("conditions: url='".$company."'");
 			if ($this->company) {
+				$plan = Load::model("company_plan")->find_first("conditions: company_id = '".$this->company->id."' and activo = '1'");
+
+				if (!$plan) {
+					View::select("renovar");
+				}else{
+					$datetime1 = new DateTime($plan->created);
+					$datetime2 = new DateTime(date("Y-m-d H:i:s"));
+					$interval = $datetime1->diff($datetime2);
+					
+
+					// @link http://www.php.net/manual/en/class.dateinterval.php
+					$meses= $interval->m + 12*$interval->y;
+
+					if ($plan->meses < $meses) {
+						View::select("renovar");
+						$this->mensaje = "Su tiempo de renovación a llegado, se han cumplido sus ".$plan->meses." meses";
+					}
+
+				}
 				if ($this->company->status == 'pause') {
 					View::select("renovar");
 				}

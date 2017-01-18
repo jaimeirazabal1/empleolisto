@@ -141,7 +141,7 @@
 		<div class="col-md-4"></div>
 		<div class="col-md-4 text-center">
 			<br>
-
+			<?php if (count($perfiles)): ?>
 			<form class="form-inline">
 			  <div class="form-group">
 			    <label style="color:white;font-weight: 100">Puesto</label>
@@ -161,6 +161,7 @@
 			    <button class="btn btn-default" name="excel" value="1">Descargar</button>
 			  </div>
 			</form>
+		<?php endif ?>
 			<br>
 		</div>
 		<div class="col-md-4"></div>
@@ -168,110 +169,118 @@
 	<div class="row">
 		<div class="col-sm-1"></div>
 		<div class="col-md-10">
-			<table class="table">
-				<thead>
-					<th>Nombre</th>
-					<th>Edad</th>
-					<th>E-mail</th>
-					<th>Teléfono</th>
-					<th>Fecha de Aplicación</th>
-					<th>Sexo</th>
-					<th>Status</th>
-					<th>Comentarios</th>
-				</thead>
-				<?php for($i=0;$i<count($perfiles);$i++): ?>
-					<?php if ($i % 2 == 0): ?>
-						<tr style="background-color: #d9d9d9">
-					<?php else: ?>
-						<tr style="background-color: #f3f3f2">
-					<?php endif ?>
-						<td> <?php echo $perfiles[$i]->nombre ?></td>
-						<td><?php echo $perfiles[$i]->edad ?></td>
-						<td><?php echo $perfiles[$i]->email ?></td>
-						<td><?php echo $perfiles[$i]->telefono1 ?> | <?php echo $perfiles[$i]->telefono2 ?></td>
-						<td><?php echo $perfiles[$i]->created ?></td>
-						<td>
-						<?php if ($perfiles[$i]->sexo == "M"): ?>
-						<?php echo Html::img("RECRUITMENT STATION/iconos h y m-01.png","","class='iconos_sexo'") ?><?php echo Html::img("RECRUITMENT STATION/iconos h y m-04.png","","class='iconos_sexo'") ?>
-						<?php else: ?>
-<?php echo Html::img("RECRUITMENT STATION/iconos h y m-03.png","","class='iconos_sexo'") ?><?php echo Html::img("RECRUITMENT STATION/iconos h y m-02.png","","class='iconos_sexo'") ?>
-
-						<?php endif ?>
-							
-						</td>
-						<td>
-							<div style="width:100px">
-								
-							<ul class="lightSlider">
-							  <li><a href="">&nbsp;</a></li>
-
-							  <?php if ($perfiles[$i]->no_aplica): ?>
-							  	<li><a href="#" class="no_aplica" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-02.png') ?></a></li>
-								<?php else: ?>
-									<li><a href="#" class="no_aplica" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-02.png') ?></a></li>
-							  <?php endif ?>
-
-
-							  <?php if ($perfiles[$i]->aplico): ?>
-							  	<li><a href="#" class="aplico" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-03.png') ?></a></li>
-								<?php else: ?>
-									<li><a href="#" class="aplico" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-03.png') ?></a></li>
-							  <?php endif ?>
-
-							  <?php if ($perfiles[$i]->llamar): ?>
-							  	<li><a href="#" class="llamar" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-01.png') ?></a></li>
-								<?php else: ?>
-									<li><a href="#" class="llamar" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-01.png') ?></a></li>
-							  <?php endif ?>
-
-
-							  <?php if ($perfiles[$i]->entrevista1): ?>
-							  	<li><a href="#" class="entrevista1" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-04.png') ?></a></li>
-								<?php else: ?>
-									<li><a href="#" class="entrevista1" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-04.png') ?></a></li>
-							  <?php endif ?>
-
-
-							  <?php if ($perfiles[$i]->entrevista2): ?>
-							  	<li><a href="#" class="entrevista2" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-05.png') ?></a></li>
-								<?php else: ?>
-									<li><a href="#" class="entrevista2" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-05.png') ?></a></li>
-							  <?php endif ?>
-
-							  <?php if ($perfiles[$i]->medico): ?>
-							  	<li><a href="#" class="medico" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-06.png') ?></a></li>
-								<?php else: ?>
-									<li><a href="#" class="medico" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-06.png') ?></a></li>
-							  <?php endif ?>
-
-							  <?php if ($perfiles[$i]->documentos): ?>
-							  	<li><a href="#" class="documentos" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-08.png') ?></a></li>
-								<?php else: ?>
-									<li><a href="#" class="documentos" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-08.png') ?></a></li>
-							  <?php endif ?>
-
-
-							  <?php if ($perfiles[$i]->contrato): ?>
-							  	<li><a href="#" class="contrato" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-07.png') ?></a></li>
-								<?php else: ?>
-									<li><a href="#" class="contrato" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-07.png') ?></a></li>
-							  <?php endif ?>
-
-							  <li><a href="#">&nbsp;</a></li>
-
-							</ul>
-							</div>							  
-						</td>
-						<td style="width:200px" contenteditable="true" class="comentarios" id="<?php echo $perfiles[$i]->id ?>">
-							<?php if (!$perfiles[$i]->comentario): ?>
-								Deja un Comentario
+			<?php if (!count($perfiles)): ?>
+					
+							<center><h4>
+								No se Encontraron registros
+							</h4></center>
+				<?php else: ?>
+					<table class="table">
+						<thead>
+							<th>Nombre</th>
+							<th>Edad</th>
+							<th>E-mail</th>
+							<th>Teléfono</th>
+							<th>Fecha de Aplicación</th>
+							<th>Sexo</th>
+							<th>Status</th>
+							<th>Comentarios</th>
+						</thead>
+					
+						<?php for($i=0;$i<count($perfiles);$i++): ?>
+							<?php if ($i % 2 == 0): ?>
+								<tr style="background-color: #d9d9d9">
 							<?php else: ?>
-								<?php echo $perfiles[$i]->comentario ?>
+								<tr style="background-color: #f3f3f2">
 							<?php endif ?>
-						</td>
-					</tr>
-				<?php endfor; ?>
-			</table>
+								<td> <?php echo $perfiles[$i]->nombre ?></td>
+								<td><?php echo $perfiles[$i]->edad ?></td>
+								<td><?php echo $perfiles[$i]->email ?></td>
+								<td><?php echo $perfiles[$i]->telefono1 ?> | <?php echo $perfiles[$i]->telefono2 ?></td>
+								<td><?php echo $perfiles[$i]->created ?></td>
+								<td>
+								<?php if ($perfiles[$i]->sexo == "M"): ?>
+								<?php echo Html::img("RECRUITMENT STATION/iconos h y m-01.png","","class='iconos_sexo'") ?><?php echo Html::img("RECRUITMENT STATION/iconos h y m-04.png","","class='iconos_sexo'") ?>
+								<?php else: ?>
+		<?php echo Html::img("RECRUITMENT STATION/iconos h y m-03.png","","class='iconos_sexo'") ?><?php echo Html::img("RECRUITMENT STATION/iconos h y m-02.png","","class='iconos_sexo'") ?>
+
+								<?php endif ?>
+									
+								</td>
+								<td>
+									<div style="width:100px">
+										
+									<ul class="lightSlider">
+									  <li><a href="">&nbsp;</a></li>
+
+									  <?php if ($perfiles[$i]->no_aplica): ?>
+									  	<li><a href="#" class="no_aplica" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-02.png') ?></a></li>
+										<?php else: ?>
+											<li><a href="#" class="no_aplica" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-02.png') ?></a></li>
+									  <?php endif ?>
+
+
+									  <?php if ($perfiles[$i]->aplico): ?>
+									  	<li><a href="#" class="aplico" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-03.png') ?></a></li>
+										<?php else: ?>
+											<li><a href="#" class="aplico" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-03.png') ?></a></li>
+									  <?php endif ?>
+
+									  <?php if ($perfiles[$i]->llamar): ?>
+									  	<li><a href="#" class="llamar" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-01.png') ?></a></li>
+										<?php else: ?>
+											<li><a href="#" class="llamar" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-01.png') ?></a></li>
+									  <?php endif ?>
+
+
+									  <?php if ($perfiles[$i]->entrevista1): ?>
+									  	<li><a href="#" class="entrevista1" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-04.png') ?></a></li>
+										<?php else: ?>
+											<li><a href="#" class="entrevista1" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-04.png') ?></a></li>
+									  <?php endif ?>
+
+
+									  <?php if ($perfiles[$i]->entrevista2): ?>
+									  	<li><a href="#" class="entrevista2" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-05.png') ?></a></li>
+										<?php else: ?>
+											<li><a href="#" class="entrevista2" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-05.png') ?></a></li>
+									  <?php endif ?>
+
+									  <?php if ($perfiles[$i]->medico): ?>
+									  	<li><a href="#" class="medico" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-06.png') ?></a></li>
+										<?php else: ?>
+											<li><a href="#" class="medico" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-06.png') ?></a></li>
+									  <?php endif ?>
+
+									  <?php if ($perfiles[$i]->documentos): ?>
+									  	<li><a href="#" class="documentos" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-08.png') ?></a></li>
+										<?php else: ?>
+											<li><a href="#" class="documentos" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-08.png') ?></a></li>
+									  <?php endif ?>
+
+
+									  <?php if ($perfiles[$i]->contrato): ?>
+									  	<li><a href="#" class="contrato" accion="0" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2-07.png') ?></a></li>
+										<?php else: ?>
+											<li><a href="#" class="contrato" accion="1" id="<?php echo $perfiles[$i]->id ?>"><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-07.png') ?></a></li>
+									  <?php endif ?>
+
+									  <li><a href="#">&nbsp;</a></li>
+
+									</ul>
+									</div>							  
+								</td>
+								<td style="width:200px" contenteditable="true" class="comentarios" id="<?php echo $perfiles[$i]->id ?>">
+									<?php if (!$perfiles[$i]->comentario): ?>
+										Deja un Comentario
+									<?php else: ?>
+										<?php echo $perfiles[$i]->comentario ?>
+									<?php endif ?>
+								</td>
+							</tr>
+						<?php endfor; ?>
+					</table>
+				<?php endif ?>
 		</div>
 		<div class="col-sm-1"></div>
 		
