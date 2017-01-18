@@ -378,7 +378,7 @@
 							<div id="fondo_perfil" class='img-thumbnail'>
 								<p>Selecciona un color de fondo abajo!</p>
 							</div><br>
-							<input type="color" name="color" onchange="$('#fondo_perfil').css('backgroundColor',$(this).val())">
+							<input type="color" name="color" value="<?php echo $company_fields->bg_color ?>" onchange="$('#fondo_perfil').css('backgroundColor',$(this).val())">
 						</div>
 						<div class="col-md-5">
 						<div class="row">

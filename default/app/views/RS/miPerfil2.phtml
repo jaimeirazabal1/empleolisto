@@ -103,7 +103,7 @@
 		max-height: 140px;
 	}
 	#fondo_perfil{
-		width: 100px;
+		width: 100%;
 		height: 100px;
 		background-color: <?php echo $company_fields->bg_color ?>;
 		margin: auto;
@@ -459,7 +459,13 @@
 			</div>
 		</div>
 		<div class="row well">
-			<div class="col-md-12">
+		<div class="col-md-6 text-center">
+							<div id="fondo_perfil" >
+								<p>Selecciona un color de fondo abajo!</p>
+							</div><br>
+							<input type="color" name="color" value="<?php echo $company_fields->bg_color ?>" onchange="$('#fondo_perfil').css('backgroundColor',$(this).val())">
+						</div>
+			<div class="col-md-6 ">
 				<div class="form-group">
 					<label>Cambio de Password</label>
 					<input type="text" class="form-control" name="password" placeholder="Cambiar Contraseña">
