@@ -349,7 +349,10 @@
 			<div class="col-md-4 well">
 				<div class="form-group">
 					<center>
+					<?php if ($company_fields->logo_url): ?>
+						
 						<?php echo Html::img($company_fields->logo_url,'TU Logo','class="img-thumbnail logo_empresa"') ?>
+					<?php endif ?>
 					</center>
 					<br>
 					<label>Logo de la empresa</label>
@@ -359,7 +362,10 @@
 			<div class="col-md-8 well">
 				<div class="form-group">
 					<center>
+					<?php if ($company_fields->bg_url): ?>
+						
 						<?php echo Html::img($company_fields->bg_url,"",'class="img-thumbnail bg_url"') ?>
+					<?php endif ?>
 					</center>
 					<br>
 					<label>Imagen de la empresa</label>

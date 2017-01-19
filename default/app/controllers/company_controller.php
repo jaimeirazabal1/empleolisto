@@ -45,8 +45,8 @@ class CompanyController extends AppController{
 				if ($company->update()) {
 					Flash::valid("Status actualizado con éxito!");
 					if (isset($_GET['stop']) and $_GET['stop'] == 1) {
-						if(Load::model("company_perfiles")->delete("company_id='".$company->id."'")){
-							Flash::valid("Perfiles Borrados con exito!");
+						if(Load::model("company_perfiles")->delete("company_id='".$company->id."'") and Load::model("company")->delete($company->id) and Load::model("company_puesto")->delete($company->id) and Load::model("company_plan")->delete($company->id) and Load::model("company_fields")->delete($company->id)){
+							Flash::valid("Empresa borrada!");
 						}else{
 							Flash::error("No se pudo borrar los perfiles");
 						}

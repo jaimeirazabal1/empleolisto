@@ -33,7 +33,7 @@ class RSController extends AppController{
 					View::select("renovar");
 				}
 				$this->company_fields = Load::model("company_fields")->find_first("conditions: company_id='".$this->company->id."'");
-				$this->company_puesto = Load::model("company_puesto")->find("conditions: company_id='".$this->company->id."'");
+				$this->company_puesto = Load::model("company_puesto")->find("conditions: company_id='".$this->company->id."' and activo='1'");
 				$this->company_plan = Load::model("company_plan")->find_first("conditions: company_id='".$this->company->id."' and activo='1'","limit: 1","order: id desc");
 				if (Input::hasPost("company_perfiles")) {
 					$company_perfiles = Load::model("company_perfiles",Input::post("company_perfiles"));
@@ -44,6 +44,7 @@ class RSController extends AppController{
 			}
 		}
 	}
+
 	public function login(){
         if (Input::hasPost("user","password")){
             $pwd = md5(Input::post("password"));
@@ -54,7 +55,7 @@ class RSController extends AppController{
             	if (Auth::is_valid() and Auth::get("role") == "admin") {
             		Router::redirect("RS/superadmin");
             	}else{
-                	Router::redirect("RS/miPerfil");
+                	Router::redirect("RS/miPerfil2");
             	}
             } else {
                 Flash::error("Nombre de Usuario o Contraseña Inválidos!");

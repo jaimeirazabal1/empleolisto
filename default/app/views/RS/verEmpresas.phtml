@@ -117,7 +117,7 @@
 	      <div class="col-md-6 col-xs-6">
 	        <div class="row">
 	          <div class="col-md-4 col-xs-4">
-	          <?php echo Html::link("RS/superadmin","Nuevos Perfiles") ?>
+	          <?php echo Html::link("RS/superadmin","Nueva Empresa") ?>
 	          </div>
 	          <div class="col-md-4 col-xs-4">
 	          <?php echo Html::link("RS/verPerfiles","Ver perfiles") ?>
@@ -169,6 +169,7 @@
 							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?pause=1"><?php echo Html::img('iconos2-02.png',"","width='60'") ?></a>
 							<a href="<?php echo PUBLIC_PATH ?>company/status/<?php echo $value->id ?>?stop=1" class='eliminar_boton'><?php echo Html::img('iconos2-06.png',"","width='60'") ?></a>
 					<?php endif ?>
+						<?php echo Html::link("RS/?p=".$value->url,"Ver Empresa","target='_blank' style='margin-left:15px'") ?>
 			</ul>			
 				<?php endforeach ?>
 			
