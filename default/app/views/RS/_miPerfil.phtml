@@ -1,10 +1,9 @@
-
 <style type="text/css">
 	html,body{
 		margin:0px;
 		height:100%;
 		font-family: Century Gothic, sans-serif;
-		width: 100%;
+
 	}
 	header{
 		background-color:#1e96ce;
@@ -18,6 +17,7 @@
 		background-repeat:no-repeat;
 		width: 100%;
 		background-size:cover;
+
 	}
 	.logo{
 		padding:0 !important;
@@ -100,10 +100,10 @@
 		margin-bottom:80px;		
 	}
 	.logo_empresa{
-		max-height: 140px;
+		width: 260px;
 	}
 	#fondo_perfil{
-		width: 100%;
+		width: 100px;
 		height: 100px;
 		background-color: <?php echo $company_fields->bg_color ?>;
 		margin: auto;
@@ -161,9 +161,6 @@
 	}
 	.label_puesto:hover{
 		background-color: #EDEDED;
-	}
-	.well{
-		background-color: rgba(100,100,100,0.3);
 	}
 </style>
 <script type="text/javascript">
@@ -316,8 +313,10 @@
 		})
 	})
 </script>
+
+<?php View::content() ?>
 <div class="fondo">
-	<?php View::content() ?>
+
 	<header>
 	    <div class="row">
 	      <div class="col-md-3 col-xs-3 logo">
@@ -342,41 +341,78 @@
 	      <div class="clearfix"></div>
 	    </div>
 	</header>
-	<br>
-	<div class="container">
-		<?php echo Form::openMultipart() ?>
-		<div class="row ">
-			<div class="col-md-4 well">
-				<div class="form-group">
-					<center>
-					<?php if ($company_fields->logo_url): ?>
-						
-						<?php echo Html::img($company_fields->logo_url,'TU Logo','class="img-thumbnail logo_empresa"') ?>
-					<?php endif ?>
-					</center>
-					<br>
-					<label>Logo de la empresa</label>
-					<p><?php echo Form::file('logo') ?></p>
-				</div>
-			</div>
-			<div class="col-md-8 well">
-				<div class="form-group">
-					<center>
-					<?php if ($company_fields->bg_url): ?>
-						
-						<?php echo Html::img($company_fields->bg_url,"",'class="img-thumbnail bg_url"') ?>
-					<?php endif ?>
-					</center>
-					<br>
-					<label>Imagen de la empresa</label>
-					<p><?php echo Form::file('logo_fondo') ?></p>
-				</div>
-			</div>
-			
+
+	<div class="row">
+		<div class="col-md-2 fondo_izquierdo">
+			<ul>
+				<li style="margin-bottom: 260px">Logo:</li>
+				<li style="margin-bottom: 260px">Back:</li>
+				<li style="margin-bottom: 100px">Texto:</li>
+				<li style="margin-bottom: 160px">Puesto:</li>
+				<li style="margin-bottom: 160px">Agradecimiento:</li>
+				<li style="margin-bottom: 160px">Aviso de Privacidad:</li>
+			</ul>
 		</div>
-		<div class="row">
-			<div class="col-md-12 well">
-			<label>Puestos</label>
+		<?php echo Form::openMultipart() ?>
+		<div class="col-md-10 fondo_derecho">
+			<ul>
+				<li>
+					<div class="row">
+						<div class="col-md-4 text-center">
+							<?php echo Html::img($company_fields->logo_url,'TU Logo','class="img-thumbnail logo_empresa"') ?>
+							
+							<br>
+							<br>
+							<?php echo Form::file('logo') ?>
+						</div>
+						<div class="col-md-4 form-inline text-center">
+							<label>Cambio de Password</label>
+							<input type="text" class="form-control" name="password" placeholder="Cambiar Contraseña" style="width:50%">
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="row">
+						
+						<div class="col-md-4 text-center">
+							<div id="fondo_perfil" class='img-thumbnail'>
+								<p>Selecciona un color de fondo abajo!</p>
+							</div><br>
+							<input type="color" name="color" value="<?php echo $company_fields->bg_color ?>" onchange="$('#fondo_perfil').css('backgroundColor',$(this).val())">
+						</div>
+						<div class="col-md-5">
+						<div class="row">
+							<div class="col-md-10">
+								<center>
+									<?php echo Html::img($company_fields->bg_url,"",'class="img-thumbnail bg_url"') ?>
+									<br><br>
+									<?php echo Form::file('logo_fondo') ?>
+								</center>
+							</div>
+							<div class="col-md-2">
+								<span style="font-size: 9px;color:black;">650x140 px</span>
+							</div>
+						</div>
+						</div>
+						<div class="col-md-3">
+								
+						</div>
+					</div>					
+				</li>
+				<li>
+					<div class="row">
+						<div class="col-md-2"></div>
+						<div class="col-md-6">
+							<?php echo Form::textarea("texto","class='form-control'",$company_fields->texto) ?>
+							
+						</div>
+						<div class="col-md-2 text-left">
+							<span id="cantidad_palabras" style="font-size: 9px;color:black;">140 caracteres</span>
+						</div>
+						<div class="col-md-2">
+					</div>
+				</li>
+				<li>
 					<div class="row">
 						<div class="col-md-2"></div>
 						<div class="col-md-6 puestos_div">
@@ -433,57 +469,44 @@
 								Agregar: <span class='cajero_box'><input type="text"  id="input_nuevo_puesto" style="color:grey" name="nuevo_puesto"> <button class="btn-mas">+</button></span>
 						</div>
 						<div class="col-md-1"></div>
-					</div>
-			</div>
-		</div>
-		<div class="row well">
-			<div class="col-md-12">
-				<div class="form-group">
-					<label>Texto</label>
+					</div>					
+				</li>
+				<li>
+					<div class="row">
+						<div class="col-md-2"></div>
+						<div class="col-md-6">
 
-							<?php echo Form::textarea("texto","class='form-control'",$company_fields->texto) ?>
+							<?php echo Form::textarea("agradecimiento","class='form-control' rows='4'",$company_fields->agradecimiento) ?>
 							
-						
-							<span id="cantidad_palabras" style="font-size: 9px;color:black;">140 caracteres</span>
-				</div>
-			</div>
-		</div>
-		<div class="row well">
-			<div class="col-md-12">
-				<div class="form-group">
-					<label>Agradecimiento</label>
-					<?php echo Form::textarea("agradecimiento","class='form-control' rows='4'",$company_fields->agradecimiento) ?>
-				</div>
-			</div>
-		</div>
-		<div class="row well">
-			<div class="col-md-12">
-				<div class="form-group">
-					<label>Aviso de Privacidad</label>
-					<?php echo Form::textarea("aviso_privacidad","class='form-control' rows='4'",$company_fields->aviso_privacidad) ?>
-				</div>
-			</div>
-		</div>
-		<div class="row well">
-		<div class="col-md-6 text-center">
-							<div id="fondo_perfil" >
-								<p>Selecciona un color de fondo abajo!</p>
-							</div><br>
-							<input type="color" name="color" value="<?php echo $company_fields->bg_color ?>" onchange="$('#fondo_perfil').css('backgroundColor',$(this).val())">
 						</div>
-			<div class="col-md-6 ">
-				<div class="form-group">
-					<label>Cambio de Password</label>
-					<input type="text" class="form-control" name="password" placeholder="Cambiar Contraseña">
-				</div>
-			</div>
-		</div>
+						<div class="col-md-2 text-left">
+							<!--<span style="font-size: 9px;color:black;">140 caracteres</span>-->
+						</div>
+						<div class="col-md-2"></div>
+					</div>					
+				</li>
+				<li>
+						<div class="col-md-2"></div>
+						<div class="col-md-6">
+
+							<?php echo Form::textarea("aviso_privacidad","class='form-control' rows='4'",$company_fields->aviso_privacidad) ?>
+							
+						</div>
+						<div class="col-md-2 text-left">
+							<!--<span style="font-size: 9px;color:black;">140 caracteres</span>-->
+						</div>
+						<div class="col-md-2"></div>	
+						<div class="clearfix"></div>				
+				</li>
+				
+			</ul>
 			<div class="row">
 				<div class="col-md-12 text-center">
 					<button type="submit" class="btn_crear_empresa">Guardar</button>
 				</div>
 			</div>
-			<br>
-		<?php echo Form::close() ?>
-	</div>
+			</form>
+		</div>
+	</div>	
+
 </div>

@@ -38,7 +38,8 @@ class RSController extends AppController{
 				if (Input::hasPost("company_perfiles")) {
 					$company_perfiles = Load::model("company_perfiles",Input::post("company_perfiles"));
 					if ($company_perfiles->save()) {
-						Flash::valid("Registro Guardado");
+						$_SESSION['company_id'] = $this->company->id;
+						Router::redirect("RS/gracias");
 					}
 				}
 			}
@@ -55,7 +56,7 @@ class RSController extends AppController{
             	if (Auth::is_valid() and Auth::get("role") == "admin") {
             		Router::redirect("RS/superadmin");
             	}else{
-                	Router::redirect("RS/miPerfil2");
+                	Router::redirect("RS/miPerfil");
             	}
             } else {
                 Flash::error("Nombre de Usuario o Contraseña Inválidos!");
@@ -119,10 +120,19 @@ class RSController extends AppController{
 		$this->puestos = Load::model("company_perfiles")->find("columns: puesto","group: puesto");
 		if (isset($_GET['excel']) and $_GET['excel'] == 1) {
 			if (isset($_GET['puesto']) and $_GET['puesto']) {
-				$this->perfiles = Load::model('company_perfiles')->find("conditions:  puesto = '".$_GET['puesto']."' ","columns: id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,created");
-			}else{
+				if (Auth::get("role") == 'admin') {
+				$this->perfiles = Load::model('company_perfiles')->find("conditions:  puesto = '".$_GET['puesto']."' ","columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company.url,company_perfiles.created","join: inner join company on company.id = company_perfiles.company_id");
+				}else{
+				$this->perfiles = Load::model('company_perfiles')->find("conditions:  puesto = '".$_GET['puesto']."' ","columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company_perfiles.created");
 
-				$this->perfiles = Load::model('company_perfiles')->find("columns: id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,created");
+				}
+			}else{
+				if (Auth::get("role") == 'admin') {
+				$this->perfiles = Load::model('company_perfiles')->find("columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company.url,company_perfiles.created","join: inner join company on company.id = company_perfiles.company_id");
+				}else{
+
+				$this->perfiles = Load::model('company_perfiles')->find("columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company_perfiles.created");
+				}
 			}
 			// output headers so that the file is downloaded rather than displayed
 			header('Content-Type: text/csv; charset=utf-8');
@@ -132,7 +142,12 @@ class RSController extends AppController{
 			$output = fopen('php://output', 'w');
 
 			// output the column headings
+			if (Auth::get("role") == 'admin') {
+			fputcsv($output, array('id','nombre', 'sexo', 'email','edad','telefono1','telefono2','puesto','experiencia','comentario','no_aplica','aplico','llamar','entrevista1','entrevista2','medico','documentos','contrato','empresa','created'));				
+			}else{
+
 			fputcsv($output, array('id','nombre', 'sexo', 'email','edad','telefono1','telefono2','puesto','experiencia','comentario','no_aplica','aplico','llamar','entrevista1','entrevista2','medico','documentos','contrato','created'));
+			}
 
 		
 			$rows = $this->perfiles;
@@ -157,10 +172,10 @@ class RSController extends AppController{
 
 		if (isset($_GET['excel']) and $_GET['excel'] == 1) {
 			if (isset($_GET['puesto']) and $_GET['puesto']) {
-				$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' and puesto = '".$_GET['puesto']."' ","columns: id, nombre, sexo, email, edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,created");
+				$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' and puesto = '".$_GET['puesto']."' ","columns: company_perfiles.id, nombre, sexo, email, edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company_perfiles.created");
 			}else{
 
-				$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' ","columns: id, nombre, sexo, email, edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,created");
+				$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' ","columns: company_perfiles.id, nombre, sexo, email, edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company_perfiles.created");
 			}
 			// output headers so that the file is downloaded rather than displayed
 			header('Content-Type: text/csv; charset=utf-8');
@@ -185,7 +200,7 @@ class RSController extends AppController{
 	public function verEmpresas(){
 		$this->empresas = Load::model("company")->find();
 	}
-	public function miPerfil(){
+	public function _miPerfil(){
 		$company = Load::model("company")->find_first("conditions: company_user = '".Auth::get('id')."' ");
 		$this->company = $company;
 		$this->puestos = Load::model("company_puesto")->find("conditions: company_id = '".$company->id."' ");
@@ -267,7 +282,7 @@ class RSController extends AppController{
 		$this->company_fields = Load::model("company_fields")->find_first("conditions: company_id = '".$company->id."' ");
 
 	}
-	public function miPerfil2(){
+	public function miPerfil(){
 		$company = Load::model("company")->find_first("conditions: company_user = '".Auth::get('id')."' ");
 		$this->company = $company;
 		$this->puestos = Load::model("company_puesto")->find("conditions: company_id = '".$company->id."' ");
@@ -354,7 +369,10 @@ class RSController extends AppController{
 
 	}
 	public function gracias(){
-		
+		if (isset($_SESSION['company_id'])) {
+			$this->company_fields = Load::model("company_fields")->find_first("conditions: company_id ='".$_SESSION['company_id']."'");
+			$this->company = Load::model("company")->find_first($_SESSION['company_id']);
+		}
 	}
 	public function logout(){
 		Auth::destroy_identity();

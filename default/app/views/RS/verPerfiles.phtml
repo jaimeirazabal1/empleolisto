@@ -1,3 +1,4 @@
+<?php echo Tag::js("jquery.dataTables.min") ?>
 <style type="text/css">
 	html,body{
 		margin:0px;
@@ -112,7 +113,8 @@
 	<header>
 	    <div class="row">
 	      <div class="col-md-3 col-xs-3 logo">
-	        <h1>empleolisto <br><small>Recruitment Station</small></h1>
+	      <br>
+	      	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo Html::img("logo blanco-02.png","","width='180'") ?>
 	      </div>
 	      <div class="col-md-6 col-xs-6">
 	        <div class="row">
@@ -189,7 +191,7 @@
 					
 						<?php for($i=0;$i<count($perfiles);$i++): ?>
 							<?php if ($i % 2 == 0): ?>
-								<tr style="background-color: #d9d9d9">
+								<tr style="background-color: #F6F6F6">
 							<?php else: ?>
 								<tr style="background-color: #f3f3f2">
 							<?php endif ?>

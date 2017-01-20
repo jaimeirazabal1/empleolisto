@@ -1,6 +1,6 @@
 <style type="text/css">
 	body{
-		background-color:#1f8cd2;
+		background-color:<?php echo $company_fields->bg_color ?>;
 	}
 	#header{
 		width: 80%;
@@ -49,10 +49,10 @@
 <div id="header">
 	<div class="row">
 		<div class="col-md-2 logo">
-			<?php echo Html::img("RECRUITMENT STATION/sears-logo.png") ?>
+			<?php echo Html::img($company_fields->logo_url) ?>
 		</div>
 		<div class="col-md-10">
-			<?php echo Html::img("RECRUITMENT STATION/shutterstock_2130063162-01.jpg") ?>
+			<?php echo Html::img($company_fields->bg_url) ?>
 		</div>
 	</div>
 
@@ -63,7 +63,9 @@
 		<div class="mensaje ">
 			<h1 class="text-center">Gracias</h1>
 			<br>
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero distinctio nemo unde magnam, ipsa, obcaecati rerum quasi illum eum praesentium sunt tempora facilis tenetur. Sapiente eum molestias, dicta corporis mollitia!
+			<p>
+				<?php echo $company_fields->agradecimiento ?>
+			</p>
 		</div>
 	</div>
 </div>
@@ -73,7 +75,7 @@
 	<div class="col-md-4">
 				<div class="form-group">
 					<div class="text-center">
-						<button type="submit" class="btn_crear_empresa">Nuevo</button>
+						<?php echo Html::link("RS/?p=".$company->url,"Nuevo",'class="btn_crear_empresa"') ?>
 					</div>
 				</div>
 	</div>

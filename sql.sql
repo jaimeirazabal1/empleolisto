@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-01-2017 a las 21:37:01
+-- Tiempo de generación: 20-01-2017 a las 16:14:21
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -52,7 +52,7 @@ CREATE TABLE `company_fields` (
   `logo_url` varchar(255) DEFAULT NULL,
   `bg_color` varchar(20) DEFAULT NULL,
   `bg_url` varchar(255) DEFAULT NULL,
-  `texto` varchar(140) DEFAULT NULL,
+  `texto` varchar(330) DEFAULT NULL,
   `agradecimiento` text,
   `aviso_privacidad` text,
   `company_id` int(11) NOT NULL,
@@ -96,6 +96,14 @@ CREATE TABLE `company_perfiles` (
   `contrato` tinyint(1) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `company_perfiles`
+--
+
+INSERT INTO `company_perfiles` (`id`, `company_id`, `nombre`, `sexo`, `email`, `edad`, `telefono1`, `telefono2`, `puesto`, `experiencia`, `comentario`, `user_id`, `no_aplica`, `aplico`, `llamar`, `entrevista1`, `entrevista2`, `medico`, `documentos`, `contrato`, `created`) VALUES
+(1, 1, 'name', 'F', 'name@gmail.com', 18, '123456', NULL, 'Seguridad', 'asdasdsad', NULL, 1, 0, 1, 1, NULL, NULL, NULL, NULL, NULL, '2017-01-20 13:05:25'),
+(2, 1, 'lala', 'F', 'lala@gmail.com', 19, '12345', '65432', 'Ventas', 'experiencia', NULL, 1, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2017-01-20 15:07:29');
 
 -- --------------------------------------------------------
 
@@ -142,7 +150,6 @@ INSERT INTO `company_puesto` (`id`, `puesto`, `activo`, `company_id`) VALUES
 (6, 'Seguridad 2', 1, 1),
 (8, 'AAA', 1, 1),
 (9, 'A', 0, 1),
-(10, 'B', 0, 1),
 (11, 'C', 0, 1),
 (12, 'D', 0, 1),
 (13, 'Hola', 0, 1),
@@ -231,22 +238,22 @@ ALTER TABLE `company_user`
 -- AUTO_INCREMENT de la tabla `company`
 --
 ALTER TABLE `company`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `company_fields`
 --
 ALTER TABLE `company_fields`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `company_perfiles`
 --
 ALTER TABLE `company_perfiles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `company_plan`
 --
 ALTER TABLE `company_plan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `company_puesto`
 --
