@@ -39,6 +39,7 @@ class RSController extends AppController{
 					$company_perfiles = Load::model("company_perfiles",Input::post("company_perfiles"));
 					if ($company_perfiles->save()) {
 						$_SESSION['company_id'] = $this->company->id;
+						Input::delete();
 						Router::redirect("RS/gracias");
 					}
 				}

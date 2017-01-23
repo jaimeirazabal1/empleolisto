@@ -82,9 +82,9 @@
 				<div class="form-group">
 			    <label for="inputEmail3" class="col-sm-2 control-label">Nombre</label>
 			    <div class="col-sm-10">
-			    	<input type="hidden" value="<?php echo $company->id ?>" name="company_perfiles[company_id]">
+			    	<input type="hidden" value="<?php echo $company->id ?>"  name="company_perfiles[company_id]">
 			    	<input type="hidden" value="<?php echo Auth::get('id') ?>" name="company_perfiles[user_id]">
-			      <input type="text" class="form-control" name="company_perfiles[nombre]"  id="inputEmail3" placeholder="Nombre">
+			      <input type="text" class="form-control" value="<?php if(isset($_POST['company_perfiles']['nombre'])){ echo $_POST['company_perfiles']['nombre']; } ?>" name="company_perfiles[nombre]"  id="inputEmail3" placeholder="Nombre">
 			    </div>
 			  </div>
 			</div>
@@ -93,9 +93,22 @@
 			    <label for="inputEmail3" class="col-sm-2 control-label">Sexo</label>
 			    <div class="col-sm-10">
 			    	<select name="company_perfiles[sexo]"  class="form-control" required="required" id="">
+			    	<?php if (isset($_POST['company_perfiles']['sexo'])): ?>
+			    		<?php if ($_POST['company_perfiles']['sexo'] == 'F'): ?>
+			    				<option value="">Seleccione</option>
+					    		<option value="F" selected>Femenino</option>
+					    		<option value="M">Masculino</option>
+					    	<?php else: ?>
+					    		<option value="">Seleccione</option>
+					    		<option value="F" >Femenino</option>
+					    		<option value="M" selected>Masculino</option>
+			    		<?php endif ?>
+			    		<?php else: ?>
+
 			    		<option value="">Seleccione</option>
 			    		<option value="F">Femenino</option>
 			    		<option value="M">Masculino</option>
+			    	<?php endif ?>
 			    	</select>
 			    </div>
 			  </div>			
@@ -107,7 +120,7 @@
 				<div class="form-group">
 			    <label for="inputEmail3" class="col-sm-2 control-label">E-mail</label>
 			    <div class="col-sm-10">
-			      <input type="email" class="form-control" name="company_perfiles[email]" id="inputEmail3" placeholder="E-mail">
+			      <input type="email" class="form-control" value="<?php if(isset($_POST['company_perfiles']['email'])){ echo $_POST['company_perfiles']['email']; } ?>" name="company_perfiles[email]" id="inputEmail3" placeholder="E-mail">
 			    </div>
 			  </div>
 			</div>
@@ -115,7 +128,7 @@
 			  <div class="form-group">
 			    <label for="inputEmail3" class="col-sm-2 control-label">Edad</label>
 			    <div class="col-sm-10">
-			      <input type="number" min='18' max="80" class="form-control" name="company_perfiles[edad]" id="inputEmail3" placeholder="Edad">
+			      <input type="number" min='18' max="80" value="<?php if(isset($_POST['company_perfiles']['edad'])){ echo $_POST['company_perfiles']['edad']; } ?>" class="form-control" name="company_perfiles[edad]" id="inputEmail3" placeholder="Edad">
 			    </div>
 			  </div>			
 			</div>
@@ -126,7 +139,7 @@
 				<div class="form-group">
 			    <label for="inputEmail3" class="col-sm-4  text-left">Teléfono 1</label>
 			    <div class="col-sm-8">
-			      <input type="text" class="form-control" maxlength="10" name="company_perfiles[telefono1]" id="inputEmail3" placeholder="Teléfono 1">
+			      <input type="text" class="form-control" value="<?php if(isset($_POST['company_perfiles']['telefono1'])){ echo $_POST['company_perfiles']['telefono1']; } ?>" maxlength="10" name="company_perfiles[telefono1]" id="inputEmail3" placeholder="Teléfono 1">
 			    </div>
 			  </div>
 			</div>
@@ -134,7 +147,7 @@
 			  <div class="form-group">
 			    <label for="inputEmail3" class="col-sm-4  text-left">Teléfono 2</label>
 			    <div class="col-sm-8">
-			      <input type="text" class="form-control"  maxlength="10" name="company_perfiles[telefono2]" id="inputEmail3" placeholder="Teléfono 2">
+			      <input type="text" class="form-control" value="<?php if(isset($_POST['company_perfiles']['telefono2'])){ echo $_POST['company_perfiles']['telefono2']; } ?>" maxlength="10" name="company_perfiles[telefono2]" id="inputEmail3" placeholder="Teléfono 2">
 			    </div>
 			  </div>			
 			</div>
@@ -147,7 +160,11 @@
 			      <select name="company_perfiles[puesto]" required id="" class="form-control">
 			      	<option value="">Ver todos</option>
 			      	<?php foreach ($company_puesto as $key => $value): ?>
+			      		<?php if (isset($_POST['company_perfiles']['puesto']) and $_POST['company_perfiles']['puesto'] == $value->puesto): ?>
+			      			<option value="<?php echo $value->puesto ?>" selected><?php echo $value->puesto ?></option>
+						<?php else: ?>
 			      		<option value="<?php echo $value->puesto ?>"><?php echo $value->puesto ?></option>
+			      		<?php endif ?>
 			      	<?php endforeach ?>
 			      </select>
 			    </div>
@@ -171,7 +188,7 @@
 					        <h4 class="modal-title" id="myModalLabel">Experiencia Profesional</h4>
 					      </div>
 					      <div class="modal-body">
-					        <textarea name="company_perfiles[experiencia]" id="input_experiencia" maxlength="220" id="" cols="30" rows="5" class="form-control"></textarea>
+					        <textarea name="company_perfiles[experiencia]" value="<?php if(isset($_POST['company_perfiles']['experiencia'])){ echo $_POST['company_perfiles']['experiencia']; } ?>" id="input_experiencia" maxlength="220" id="" cols="30" rows="5" class="form-control"></textarea>
 					        <span id="experiencia">220 caracteres</span>
 					      </div>
 					      <div class="modal-footer">

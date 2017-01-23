@@ -177,7 +177,7 @@
 								No se Encontraron registros
 							</h4></center>
 				<?php else: ?>
-					<table class="table">
+					<table class="table datatable">
 						<thead>
 							<th>Nombre</th>
 							<th>Edad</th>
@@ -187,6 +187,7 @@
 							<th>Sexo</th>
 							<th>Status</th>
 							<th>Comentarios</th>
+							<th></th>
 						</thead>
 					
 						<?php for($i=0;$i<count($perfiles);$i++): ?>
@@ -279,6 +280,12 @@
 										<?php echo $perfiles[$i]->comentario ?>
 									<?php endif ?>
 								</td>
+								<td>
+												
+
+										<button type="button" class="btn btn-default popup" data-toggle="popover" data-placement="left" title="Experiencia Laboral" data-content="<?php echo $perfiles[$i]->experiencia ?>">Experiencia</button>
+									
+								</td>
 							</tr>
 						<?php endfor; ?>
 					</table>
@@ -291,12 +298,45 @@
 
 </div>
 <?php View::content() ?>
+<style type="text/css">
+	.dataTables_paginate a{
+		padding-left:10px;
+	}
+	.dataTables_paginate a:hover{
+		cursor:pointer;
+	}
+</style>
 <link rel="stylesheet" href="<?php echo PUBLIC_PATH ?>lightslider/dist/css/lightslider.min.css"">
 <!-- <script type="text/javascript" src="<?php echo PUBLIC_PATH ?>bootstrap/js/bootstrap.min.js"></script> -->
 <script type="text/javascript" src="<?php echo PUBLIC_PATH ?>lightslider/dist/js/lightslider.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-
+	$(".datatable").DataTable({
+		language:{
+    "sProcessing":     "Procesando...",
+    "sLengthMenu":     "Mostrar _MENU_ registros",
+    "sZeroRecords":    "No se encontraron resultados",
+    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+    "sInfoPostFix":    "",
+    "sSearch":         "Buscar:",
+    "sUrl":            "",
+    "sInfoThousands":  ",",
+    "sLoadingRecords": "Cargando...",
+    "oPaginate": {
+        "sFirst":    "Primero",
+        "sLast":     "Último",
+        "sNext":     "Siguiente",
+        "sPrevious": "Anterior"
+    },
+    "oAria": {
+        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+    }
+}
+	});
 	$('.lightSlider').lightSlider({
 	    item: 3,
 	    pager: false,
