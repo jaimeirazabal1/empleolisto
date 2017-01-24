@@ -140,43 +140,73 @@
 	</header>
 	
 	<div class="row">
-		<div class="col-md-4"></div>
-		<div class="col-md-4 text-center">
+		<div class="col-md-12 text-center" style="margin-left:10px">
 			<br>
-			<?php if (count($perfiles)): ?>
 			<form class="form-inline">
-			  <div class="form-group">
-			    <label style="color:white;font-weight: 100">Puesto</label>
-			    <select name="puesto" onChange="$(this).parent().parent().submit()" class="form-control" id="">
-			    	<option value="">Seleccione</option>
-			    	<?php foreach ($puestos as $key => $value): ?>
-			    		<?php if (isset($_GET['puesto']) and $_GET['puesto'] == $value->puesto): ?>
-				    		<option value="<?php echo $value->puesto ?>" selected><?php echo $value->puesto ?></option>
+				  <div class="form-group">
+				    <label style="color:white;font-weight: 100">Puesto</label>
+				    <select name="puesto" onChange="$(this).parent().parent().submit()" class="form-control" id="">
+				    	<option value="">Seleccione</option>
+				    	<?php foreach ($puestos as $key => $value): ?>
+				    		<?php if (isset($_GET['puesto']) and $_GET['puesto'] == $value->puesto): ?>
+					    		<option value="<?php echo $value->puesto ?>" selected><?php echo $value->puesto ?></option>
 
-			    		<?php else: ?>
-				    		<option value="<?php echo $value->puesto ?>"><?php echo $value->puesto ?></option>
-			    		<?php endif ?>
-			    	<?php endforeach ?>
-			    </select>
-			  </div>
-			  <div class="form-group">
+				    		<?php else: ?>
+					    		<option value="<?php echo $value->puesto ?>"><?php echo $value->puesto ?></option>
+				    		<?php endif ?>
+				    	<?php endforeach ?>
+				    </select>
+				  </div>
+			  
+		
+				<div class="form-group">
+					<select class="form-control" onChange="$(this).parent().parent().submit()" name="sexo">
+						<option value="">Sexo</option>
+
+						<option value="M" <?php if(isset($_GET['sexo']) and $_GET['sexo'] == 'M'): echo "selected"; endif;?>>Masculino</option>
+						<option value="F" <?php if(isset($_GET['sexo']) and $_GET['sexo'] == 'F'): echo "selected"; endif;?>>Femenino</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<select class="form-control" onChange="$(this).parent().parent().submit()" name="edad_desde">
+						<option value="">Edad Desde</option>
+						<?php for($i=18;$i<81;$i++):?>
+							<option value="<?php echo $i ?>" <?php if(isset($_GET['edad_desde']) and $_GET['edad_desde'] == $i): echo "selected"; endif;?>><?php echo $i ?></option>
+						<?php endfor;?>
+					</select>
+					<select class="form-control" onChange="$(this).parent().parent().submit()" name="edad_hasta">
+						<option value="">Edad Hasta</option>
+						<?php for($i=18;$i<81;$i++):?>
+							<option value="<?php echo $i ?>" <?php if(isset($_GET['edad_hasta']) and $_GET['edad_hasta'] == $i): echo "selected"; endif;?>><?php echo $i ?></option>
+						<?php endfor;?>
+					</select>
+				</div>
+				<div class="form-group">
+					<select class="form-control" onChange="$(this).parent().parent().submit()" name="status">
+						<option value="">Status</option>
+						<option value="no_aplica" <?php if(isset($_GET['status']) and $_GET['status'] == 'no_aplica'): echo "selected"; endif;?>>No aplica</option>
+						<option value="aplico" <?php if(isset($_GET['status']) and $_GET['status'] == 'aplico'): echo "selected"; endif;?>>Aplicó</option>
+						<option value="llamar" <?php if(isset($_GET['status']) and $_GET['status'] == 'llamar'): echo "selected"; endif;?>>Llamar</option>
+						<option value="entrevista1" <?php if(isset($_GET['status']) and $_GET['status'] == 'entrevista1'): echo "selected"; endif;?>>Entrevista 1</option>
+						<option value="entrevista2" <?php if(isset($_GET['status']) and $_GET['status'] == 'entrevista2'): echo "selected"; endif;?>>Entrevista 2</option>
+						<option value="medico" <?php if(isset($_GET['status']) and $_GET['status'] == 'medico'): echo "selected"; endif;?>>Médico</option>
+						<option value="documentos" <?php if(isset($_GET['status']) and $_GET['status'] == 'documentos'): echo "selected"; endif;?>>Documentos</option>
+						<option value="contrato" <?php if(isset($_GET['status']) and $_GET['status'] == 'contrato'): echo "selected"; endif;?>>Contrato</option>
+					</select>
+				</div>
 			    <button class="btn btn-default" name="excel" value="1">Descargar</button>
-			  </div>
 			</form>
-		<?php endif ?>
-			<br>
 		</div>
-		<div class="col-md-4"></div>
 	</div>
 	<div class="row">
 		<div class="col-sm-1"></div>
 		<div class="col-md-10">
-			<?php if (!count($perfiles)): ?>
-					
-							<center><h4>
-								No se Encontraron registros
-							</h4></center>
+				<?php if (count($perfiles)): ?>
 				<?php else: ?>
+			<center>
+				<h3>No se Encontraron Registros</h3>
+			</center>
+			<?php endif ?>
 					<table class="table datatable">
 						<thead>
 							<th>Nombre</th>
@@ -291,7 +321,6 @@
 							</tr>
 						<?php endfor; ?>
 					</table>
-				<?php endif ?>
 		</div>
 		<div class="col-sm-1"></div>
 		
@@ -315,29 +344,29 @@
 $(document).ready(function(){
 	$(".datatable").DataTable({
 		language:{
-    "sProcessing":     "Procesando...",
-    "sLengthMenu":     "Mostrar _MENU_ registros",
-    "sZeroRecords":    "No se encontraron resultados",
-    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-    "sInfoPostFix":    "",
-    "sSearch":         "Buscar:",
-    "sUrl":            "",
-    "sInfoThousands":  ",",
-    "sLoadingRecords": "Cargando...",
-    "oPaginate": {
-        "sFirst":    "Primero",
-        "sLast":     "Último",
-        "sNext":     "Siguiente",
-        "sPrevious": "Anterior"
-    },
-    "oAria": {
-        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-    }
-}
+		    "sProcessing":     "Procesando...",
+		    "sLengthMenu":     "Mostrar _MENU_ registros",
+		    "sZeroRecords":    "No se encontraron resultados",
+		    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+		    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+		    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+		    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+		    "sInfoPostFix":    "",
+		    "sSearch":         "Buscar:",
+		    "sUrl":            "",
+		    "sInfoThousands":  ",",
+		    "sLoadingRecords": "Cargando...",
+		    "oPaginate": {
+		        "sFirst":    "Primero",
+		        "sLast":     "Último",
+		        "sNext":     "Siguiente",
+		        "sPrevious": "Anterior"
+		    },
+		    "oAria": {
+		        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+		        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+		    }
+		}
 	});
 	$('.lightSlider').lightSlider({
 	    item: 3,

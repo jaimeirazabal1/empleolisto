@@ -166,7 +166,75 @@
 		background-color: rgba(100,100,100,0.3);
 	}
 </style>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>
+function getStats(id) {
+    var body = tinymce.get(id).getBody(), text = tinymce.trim(body.innerText || body.textContent);
+
+    return {
+        chars: text.length,
+        words: text.split(/[\w\u2019\'-]+/).length
+    };
+}
+function submitForm() {
+    // Check if the user has entered less than 1000 characters
+    if (getStats('texto').chars < 330) {
+        alert("You need to enter 330 characters or more.");
+        return;
+    }
+    if (getStats('agradecimiento').chars < 330) {
+        alert("You need to enter 330 characters or more.");
+        return;
+    }
+    if (getStats('aviso_privacidad').chars < 330) {
+        alert("You need to enter 330 characters or more.");
+        return;
+    }
+
+   
+
+    // Submit the form
+    document.forms[0].submit();
+}
+tinymce.init({
+  selector: '#texto',
+  height: 200,
+  menubar: false,
+  plugins: [
+    'advlist autolink lists link image charmap print preview anchor',
+    'searchreplace visualblocks code fullscreen',
+    'insertdatetime media table contextmenu paste code'
+  ],
+  toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  content_css: '//www.tinymce.com/css/codepen.min.css'
+});
+tinymce.init({
+  selector: '#agradecimiento',
+  height: 200,
+  menubar: false,
+  plugins: [
+    'advlist autolink lists link image charmap print preview anchor',
+    'searchreplace visualblocks code fullscreen',
+    'insertdatetime media table contextmenu paste code'
+  ],
+  toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  content_css: '//www.tinymce.com/css/codepen.min.css'
+});
+tinymce.init({
+  selector: '#aviso_privacidad',
+  height: 200,
+  menubar: false,
+  plugins: [
+    'advlist autolink lists link image charmap print preview anchor',
+    'searchreplace visualblocks code fullscreen',
+    'insertdatetime media table contextmenu paste code'
+  ],
+  toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  content_css: '//www.tinymce.com/css/codepen.min.css'
+});
+</script>
 <script type="text/javascript">
+
 	$(document).ready(function(){
 		$("#cantidad_palabras").text(330-$("#texto").val().length+" Caracteres");
 
@@ -327,6 +395,8 @@
 	      <div class="col-md-6 col-xs-6">
 	        <div class="row">
 	          <div class="col-md-4 col-xs-4">
+	          <?php $company=Load::model("company")->find_first("conditions: company_user='".Auth::get('id')."' ") ?>
+	          <?php echo Html::link("RS/?p=".$company->url,"Ver mi sitio","target='_blank'") ?>
 	          </div>
 	          <div class="col-md-4 col-xs-4">
 	          <?php echo Html::link("RS/misPerfiles","Ver perfiles") ?>
@@ -356,7 +426,7 @@
 					<?php endif ?>
 					</center>
 					<br>
-					<label>Logo de la empresa</label>
+					<label>Logo de la empresa (195 x 220) px</label>
 					<p><?php echo Form::file('logo') ?></p>
 				</div>
 			</div>
@@ -469,7 +539,7 @@
 		<div class="row well">
 		<div class="col-md-6 text-center">
 							<div id="fondo_perfil" >
-								<p>Selecciona un color de fondo abajo!</p>
+								<p>Selecciona un color de fondo abajo</p>
 							</div><br>
 							<input type="color" name="color" value="<?php echo $company_fields->bg_color ?>" onchange="$('#fondo_perfil').css('backgroundColor',$(this).val())">
 						</div>
@@ -477,12 +547,13 @@
 				<div class="form-group">
 					<label>Cambio de Password</label>
 					<input type="text" class="form-control" name="password" placeholder="Cambiar Contraseña">
+					<input type="text" class="form-control" name="password2" placeholder="Repetir Contraseña">
 				</div>
 			</div>
 		</div>
 			<div class="row">
 				<div class="col-md-12 text-center">
-					<button type="submit" class="btn_crear_empresa">Guardar</button>
+					<button type="submit" class="btn_crear_empresa" onclic="submitForm()">Guardar</button>
 				</div>
 			</div>
 			<br>

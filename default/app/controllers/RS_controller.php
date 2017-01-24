@@ -112,29 +112,136 @@ class RSController extends AppController{
 		}
 	}
 	public function verPerfiles(){
+		$where = array();
 		if (isset($_GET['puesto']) and $_GET['puesto']) {
-			$this->perfiles = Load::model('company_perfiles')->find("conditions:  puesto = '".$_GET['puesto']."' ");
+			$where[] = " puesto = '".$_GET['puesto']."' ";
+		}
+		if (isset($_GET['sexo']) and $_GET['sexo']) {
+			if (count($where)) {
+				# code...
+				$where[] =  " and sexo = '".$_GET['sexo']."' ";
+				
+			}else{
+
+				$where[] = " sexo = '".$_GET['sexo']."' ";
+			}
+		}
+		if (isset($_GET['edad_desde']) and $_GET['edad_desde'] and !$_GET['edad_hasta']) {
+			if (count($where)) {
+				$where[] = " and edad >= '".$_GET['edad_desde']."' ";
+			}else{
+				die("?");
+				$where[] = " edad >= '".$_GET['edad_desde']."' ";
+			}
+		}
+		if (isset($_GET['edad_hasta']) and $_GET['edad_hasta'] and !$_GET['edad_desde']) {
+			if (count($where)) {
+				$where[] = " and edad <= '".$_GET['edad_hasta']."' ";
+			}else{
+				$where[] = " edad <= '".$_GET['edad_hasta']."' ";
+			}
+			
+		}
+		if (isset($_GET['edad_hasta']) and $_GET['edad_hasta'] and isset($_GET['edad_desde']) and $_GET['edad_desde']) {
+			if (count($where)) {
+				$where[] = " and edad >= '".$_GET['edad_desde']."' and edad <= '".$_GET['edad_hasta']."'";
+			}else{
+
+			$where[] = " edad >= '".$_GET['edad_desde']."' and edad <= '".$_GET['edad_hasta']."'";
+			}
+		}
+		if (isset($_GET['status']) and $_GET['status']) {
+			if (count($where)) {
+				$where[] = " and ".$_GET['status']." = 1";
+			}else{
+				$where[] = " ".$_GET['status']." = 1";
+			}
+			
+		}
+		if (count($where)) {
+			$where = implode(" ",$where);
+			//die($where);
+			$this->perfiles = Load::model('company_perfiles')->find("conditions: ".$where);
+
 		}else{
 
 			$this->perfiles = Load::model('company_perfiles')->find();
 		}
+
 		$this->puestos = Load::model("company_perfiles")->find("columns: puesto","group: puesto");
 		if (isset($_GET['excel']) and $_GET['excel'] == 1) {
-			if (isset($_GET['puesto']) and $_GET['puesto']) {
-				if (Auth::get("role") == 'admin') {
-				$this->perfiles = Load::model('company_perfiles')->find("conditions:  puesto = '".$_GET['puesto']."' ","columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company.url,company_perfiles.created","join: inner join company on company.id = company_perfiles.company_id");
-				}else{
-				$this->perfiles = Load::model('company_perfiles')->find("conditions:  puesto = '".$_GET['puesto']."' ","columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company_perfiles.created");
-
-				}
+		$where = array();
+		if (isset($_GET['puesto']) and $_GET['puesto']) {
+			$where[] = " puesto = '".$_GET['puesto']."' ";
+		}
+		if (isset($_GET['sexo']) and $_GET['sexo']) {
+			if (count($where)) {
+				# code...
+				$where[] =  " and sexo = '".$_GET['sexo']."' ";
+				
 			}else{
+
+				$where[] = " sexo = '".$_GET['sexo']."' ";
+			}
+		}
+		if (isset($_GET['edad_desde']) and $_GET['edad_desde'] and !$_GET['edad_hasta']) {
+			if (count($where)) {
+				$where[] = " and edad >= '".$_GET['edad_desde']."' ";
+			}else{
+				die("?");
+				$where[] = " edad >= '".$_GET['edad_desde']."' ";
+			}
+		}
+		if (isset($_GET['edad_hasta']) and $_GET['edad_hasta'] and !$_GET['edad_desde']) {
+			if (count($where)) {
+				$where[] = " and edad <= '".$_GET['edad_hasta']."' ";
+			}else{
+				$where[] = " edad <= '".$_GET['edad_hasta']."' ";
+			}
+			
+		}
+		if (isset($_GET['edad_hasta']) and $_GET['edad_hasta'] and isset($_GET['edad_desde']) and $_GET['edad_desde']) {
+			if (count($where)) {
+				$where[] = " and edad >= '".$_GET['edad_desde']."' and edad <= '".$_GET['edad_hasta']."'";
+			}else{
+
+			$where[] = " edad >= '".$_GET['edad_desde']."' and edad <= '".$_GET['edad_hasta']."'";
+			}
+		}
+		if (isset($_GET['status']) and $_GET['status']) {
+			if (count($where)) {
+				$where[] = " and ".$_GET['status']." = 1";
+			}else{
+				$where[] = " ".$_GET['status']." = 1";
+			}
+			
+		}
+		if (count($where)) {
+			$where = implode(" ",$where);
+				if (Auth::get("role") == 'admin') {
+				$this->perfiles = Load::model('company_perfiles')->find("columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company.url,company_perfiles.created","join: inner join company on company.id = company_perfiles.company_id","conditions: ".$where);
+				}else{
+
+				$this->perfiles = Load::model('company_perfiles')->find("columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company_perfiles.created","conditions: ".$where);
+				}
+			//$this->perfiles = Load::model('company_perfiles')->find("conditions: ".$where);
+
+		}else{
 				if (Auth::get("role") == 'admin') {
 				$this->perfiles = Load::model('company_perfiles')->find("columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company.url,company_perfiles.created","join: inner join company on company.id = company_perfiles.company_id");
 				}else{
 
 				$this->perfiles = Load::model('company_perfiles')->find("columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company_perfiles.created");
 				}
-			}
+		}
+			
+				/*if (Auth::get("role") == 'admin') {
+				$this->perfiles = Load::model('company_perfiles')->find("columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company.url,company_perfiles.created","join: inner join company on company.id = company_perfiles.company_id");
+				}else{
+
+				$this->perfiles = Load::model('company_perfiles')->find("columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company_perfiles.created");
+				}*/
+			
 			// output headers so that the file is downloaded rather than displayed
 			header('Content-Type: text/csv; charset=utf-8');
 			header('Content-Disposition: attachment; filename=data_'.date('y_m_d_H_i_s').'.csv');
@@ -163,21 +270,127 @@ class RSController extends AppController{
 	public function misPerfiles(){
 		$company = Load::model("company")->find_first("conditions: company_user = '".Auth::get('id')."' ");
 		$this->company = $company;
+		$where = array();
 		if (isset($_GET['puesto']) and $_GET['puesto']) {
-			$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' and puesto = '".$_GET['puesto']."' ");
+			$where[] = " puesto = '".$_GET['puesto']."' ";
+		}
+		if (isset($_GET['sexo']) and $_GET['sexo']) {
+			if (count($where)) {
+				# code...
+				$where[] =  " and sexo = '".$_GET['sexo']."' ";
+				
+			}else{
+
+				$where[] = " sexo = '".$_GET['sexo']."' ";
+			}
+		}
+		if (isset($_GET['edad_desde']) and $_GET['edad_desde'] and !$_GET['edad_hasta']) {
+			if (count($where)) {
+				$where[] = " and edad >= '".$_GET['edad_desde']."' ";
+			}else{
+				die("?");
+				$where[] = " edad >= '".$_GET['edad_desde']."' ";
+			}
+		}
+		if (isset($_GET['edad_hasta']) and $_GET['edad_hasta'] and !$_GET['edad_desde']) {
+			if (count($where)) {
+				$where[] = " and edad <= '".$_GET['edad_hasta']."' ";
+			}else{
+				$where[] = " edad <= '".$_GET['edad_hasta']."' ";
+			}
+			
+		}
+		if (isset($_GET['edad_hasta']) and $_GET['edad_hasta'] and isset($_GET['edad_desde']) and $_GET['edad_desde']) {
+			if (count($where)) {
+				$where[] = " and edad >= '".$_GET['edad_desde']."' and edad <= '".$_GET['edad_hasta']."'";
+			}else{
+
+			$where[] = " edad >= '".$_GET['edad_desde']."' and edad <= '".$_GET['edad_hasta']."'";
+			}
+		}
+		if (isset($_GET['status']) and $_GET['status']) {
+			if (count($where)) {
+				$where[] = " and ".$_GET['status']." = 1";
+			}else{
+				$where[] = " ".$_GET['status']." = 1";
+			}
+			
+		}
+		if (count($where)) {
+			$where = implode(" ",$where);
+			//die($where);
+			$this->perfiles = Load::model('company_perfiles')->find("conditions: ".$where);
+
 		}else{
 
-			$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' ");
+			$this->perfiles = Load::model('company_perfiles')->find();
 		}
 		$this->puestos = Load::model("company_perfiles")->find("conditions: company_id = '".$company->id."'","columns: puesto","group: puesto");
 
 		if (isset($_GET['excel']) and $_GET['excel'] == 1) {
-			if (isset($_GET['puesto']) and $_GET['puesto']) {
+		$where = array();
+		if (isset($_GET['puesto']) and $_GET['puesto']) {
+			$where[] = " puesto = '".$_GET['puesto']."' ";
+		}
+		if (isset($_GET['sexo']) and $_GET['sexo']) {
+			if (count($where)) {
+				# code...
+				$where[] =  " and sexo = '".$_GET['sexo']."' ";
+				
+			}else{
+
+				$where[] = " sexo = '".$_GET['sexo']."' ";
+			}
+		}
+		if (isset($_GET['edad_desde']) and $_GET['edad_desde'] and !$_GET['edad_hasta']) {
+			if (count($where)) {
+				$where[] = " and edad >= '".$_GET['edad_desde']."' ";
+			}else{
+				die("?");
+				$where[] = " edad >= '".$_GET['edad_desde']."' ";
+			}
+		}
+		if (isset($_GET['edad_hasta']) and $_GET['edad_hasta'] and !$_GET['edad_desde']) {
+			if (count($where)) {
+				$where[] = " and edad <= '".$_GET['edad_hasta']."' ";
+			}else{
+				$where[] = " edad <= '".$_GET['edad_hasta']."' ";
+			}
+			
+		}
+		if (isset($_GET['edad_hasta']) and $_GET['edad_hasta'] and isset($_GET['edad_desde']) and $_GET['edad_desde']) {
+			if (count($where)) {
+				$where[] = " and edad >= '".$_GET['edad_desde']."' and edad <= '".$_GET['edad_hasta']."'";
+			}else{
+
+			$where[] = " edad >= '".$_GET['edad_desde']."' and edad <= '".$_GET['edad_hasta']."'";
+			}
+		}
+		if (isset($_GET['status']) and $_GET['status']) {
+			if (count($where)) {
+				$where[] = " and ".$_GET['status']." = 1";
+			}else{
+				$where[] = " ".$_GET['status']." = 1";
+			}
+			
+		}
+		if (count($where)) {
+			$where = implode(" ",$where);
+			//die($where);
+			$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' and ".$where,"columns: company_perfiles.id, nombre, sexo, email, edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company_perfiles.created");
+			//$this->perfiles = Load::model('company_perfiles')->find("conditions: ".$where);
+
+		}else{
+			$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' ","columns: company_perfiles.id, nombre, sexo, email, edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company_perfiles.created");
+			//$this->perfiles = Load::model('company_perfiles')->find();
+		}
+			/*if (isset($_GET['puesto']) and $_GET['puesto']) {
+
 				$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' and puesto = '".$_GET['puesto']."' ","columns: company_perfiles.id, nombre, sexo, email, edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company_perfiles.created");
 			}else{
 
 				$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' ","columns: company_perfiles.id, nombre, sexo, email, edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company_perfiles.created");
-			}
+			}*/
 			// output headers so that the file is downloaded rather than displayed
 			header('Content-Type: text/csv; charset=utf-8');
 			header('Content-Disposition: attachment; filename=data_'.date('y_m_d_H_i_s').'.csv');
@@ -290,6 +503,10 @@ class RSController extends AppController{
 		$this->company_puesto = Load::model("company_puesto")->find("conditions: company_id='".$company->id."' and activo='1'");
 		$this->company_fields = Load::model("company_fields")->find_first("conditions: company_id = '".$company->id."' ");
 		if (Input::hasPost("password") and !empty($_POST['password'])) {
+			if (Input::post("password") != Input::post("password2")) {
+				Flash::error("Las contraseñas deben coincidir!");
+				return;
+			}
 			$company_user = Load::model("company_user")->find(Auth::get("id"));
 			$company_user->password = md5(Input::post("password"));
 			if ($company_user->update()) {
@@ -343,6 +560,11 @@ class RSController extends AppController{
             }			
 		}
 		if (Input::hasPost("texto")) {
+			if (strlen(strip_tags(Input::post("texto"))) > 330) {
+				$company_fields->texto = "";
+				Flash::error("El texto no puede ser mayor de 330 caracteres!");
+				return;
+			}
 			$company_fields = Load::model("company_fields")->find_first("conditions: company_id = '".$company->id."' ");
             $company_fields->texto = Input::post("texto");
             if (!$company_fields->update()) {

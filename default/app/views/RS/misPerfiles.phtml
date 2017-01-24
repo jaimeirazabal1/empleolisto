@@ -119,9 +119,12 @@
 	      <div class="col-md-6 col-xs-6">
 	        <div class="row">
 	          <div class="col-md-4 col-xs-4">
-	            <?php echo Html::link("RS/miPerfil","<p>Opciones</p>") ?>
+	          <?php $company=Load::model("company")->find_first("conditions: company_user='".Auth::get('id')."' ") ?>
+	          <?php echo Html::link("RS/?p=".$company->url,"Ver mi sitio","target='_blank'") ?>
+	            
 	          </div>
 	          <div class="col-md-4 col-xs-4">
+				<?php echo Html::link("RS/miPerfil","<p>Opciones</p>") ?>
 	          <?php //echo Html::link("RS/verPerfiles","Ver perfiles") ?>
 	          </div>
 	          <div class="col-md-4 col-xs-4">
@@ -139,42 +142,74 @@
 	    </div>
 	</header>
 	
-	<div class="row">
-		<div class="col-md-4"></div>
-		<div class="col-md-4 text-center">
+<div class="row">
+		<div class="col-md-12 text-center" style="margin-left:10px">
 			<br>
-			<?php if (count($perfiles)): ?>
-				
-			
 			<form class="form-inline">
-			  <div class="form-group">
-			    <label style="color:white;font-weight: 100">Puesto</label>
-			    <select name="puesto" onChange="$(this).parent().parent().submit()" class="form-control" id="">
-			    	<option value="">Seleccione</option>
-			    	<?php foreach ($puestos as $key => $value): ?>
-			    		<?php if (isset($_GET['puesto']) and $_GET['puesto'] == $value->puesto): ?>
-				    		<option value="<?php echo $value->puesto ?>" selected><?php echo $value->puesto ?></option>
+				  <div class="form-group">
+				    <label style="color:white;font-weight: 100">Puesto</label>
+				    <select name="puesto" onChange="$(this).parent().parent().submit()" class="form-control" id="">
+				    	<option value="">Seleccione</option>
+				    	<?php foreach ($puestos as $key => $value): ?>
+				    		<?php if (isset($_GET['puesto']) and $_GET['puesto'] == $value->puesto): ?>
+					    		<option value="<?php echo $value->puesto ?>" selected><?php echo $value->puesto ?></option>
 
-			    		<?php else: ?>
-				    		<option value="<?php echo $value->puesto ?>"><?php echo $value->puesto ?></option>
-			    		<?php endif ?>
-			    	<?php endforeach ?>
-			    </select>
-			  </div>
-			  <div class="form-group">
+				    		<?php else: ?>
+					    		<option value="<?php echo $value->puesto ?>"><?php echo $value->puesto ?></option>
+				    		<?php endif ?>
+				    	<?php endforeach ?>
+				    </select>
+				  </div>
+			  
+		
+				<div class="form-group">
+					<select class="form-control" onChange="$(this).parent().parent().submit()" name="sexo">
+						<option value="">Sexo</option>
+
+						<option value="M" <?php if(isset($_GET['sexo']) and $_GET['sexo'] == 'M'): echo "selected"; endif;?>>Masculino</option>
+						<option value="F" <?php if(isset($_GET['sexo']) and $_GET['sexo'] == 'F'): echo "selected"; endif;?>>Femenino</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<select class="form-control" onChange="$(this).parent().parent().submit()" name="edad_desde">
+						<option value="">Edad Desde</option>
+						<?php for($i=18;$i<81;$i++):?>
+							<option value="<?php echo $i ?>" <?php if(isset($_GET['edad_desde']) and $_GET['edad_desde'] == $i): echo "selected"; endif;?>><?php echo $i ?></option>
+						<?php endfor;?>
+					</select>
+					<select class="form-control" onChange="$(this).parent().parent().submit()" name="edad_hasta">
+						<option value="">Edad Hasta</option>
+						<?php for($i=18;$i<81;$i++):?>
+							<option value="<?php echo $i ?>" <?php if(isset($_GET['edad_hasta']) and $_GET['edad_hasta'] == $i): echo "selected"; endif;?>><?php echo $i ?></option>
+						<?php endfor;?>
+					</select>
+				</div>
+				<div class="form-group">
+					<select class="form-control" onChange="$(this).parent().parent().submit()" name="status">
+						<option value="">Status</option>
+						<option value="no_aplica" <?php if(isset($_GET['status']) and $_GET['status'] == 'no_aplica'): echo "selected"; endif;?>>No aplica</option>
+						<option value="aplico" <?php if(isset($_GET['status']) and $_GET['status'] == 'aplico'): echo "selected"; endif;?>>Aplicó</option>
+						<option value="llamar" <?php if(isset($_GET['status']) and $_GET['status'] == 'llamar'): echo "selected"; endif;?>>Llamar</option>
+						<option value="entrevista1" <?php if(isset($_GET['status']) and $_GET['status'] == 'entrevista1'): echo "selected"; endif;?>>Entrevista 1</option>
+						<option value="entrevista2" <?php if(isset($_GET['status']) and $_GET['status'] == 'entrevista2'): echo "selected"; endif;?>>Entrevista 2</option>
+						<option value="medico" <?php if(isset($_GET['status']) and $_GET['status'] == 'medico'): echo "selected"; endif;?>>Médico</option>
+						<option value="documentos" <?php if(isset($_GET['status']) and $_GET['status'] == 'documentos'): echo "selected"; endif;?>>Documentos</option>
+						<option value="contrato" <?php if(isset($_GET['status']) and $_GET['status'] == 'contrato'): echo "selected"; endif;?>>Contrato</option>
+					</select>
+				</div>
 			    <button class="btn btn-default" name="excel" value="1">Descargar</button>
-			  </div>
 			</form>
-			<?php endif ?>
-			<br>
 		</div>
-		<div class="col-md-4"></div>
 	</div>
 	<div class="row">
 		<div class="col-md-1"></div>
 		<div class="col-md-10">
 			<?php if (count($perfiles)): ?>
-				
+				<?php else: ?>
+			<center>
+				<h3>No se Encontraron Registros</h3>
+			</center>
+			<?php endif ?>
 			
 			<table class="table datatable">
 				<thead>
@@ -284,11 +319,7 @@
 					</tr>
 				<?php endfor; ?>
 			</table>
-		<?php else: ?>
-			<center>
-				<h3>No se Encontraron Registros</h3>
-			</center>
-			<?php endif ?>
+		
 		</div>
 		<div class="col-md-1"></div>
 		

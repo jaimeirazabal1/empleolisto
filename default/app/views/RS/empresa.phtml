@@ -1,6 +1,25 @@
 <style type="text/css">
+	html,body{
+		margin:0px;
+		height:100%;
+		font-family: Century Gothic, sans-serif;
+		width: 100%;
+	}
 	body{
 		background-color:<?php echo $company_fields->bg_color ?>;
+		background-image: url("<?php echo PUBLIC_PATH ?>img/fondo_texturizado.png");
+		position: relative;
+		background-repeat:no-repeat;
+		width: 100%;
+		background-size:cover;
+	}
+	.fondo{
+		position: relative;
+		background-image: url("<?php echo PUBLIC_PATH ?>img/fondo_texturizado.png");
+		background-repeat:no-repeat;
+		width: 100%;
+		background-size:cover;
+		height: 100%;
 	}
 	#header{
 		width: 80%;
@@ -173,36 +192,14 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-			  <div class="form-group">
-			    <label for="inputEmail3" class="col-sm-4 control-label">Experiencia Profesional</label>
-			    <div class="col-sm-8">
-			     <label for="inputEmail3" class="col-sm-8 control-label">
-			    	<?php echo Html::link("#","Experiencia Profesional",'data-toggle="modal" data-target="#myModal3"') ?>
-			    	</label>
-			    	<!-- Modal -->
-					<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					  <div class="modal-dialog" role="document">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					        <h4 class="modal-title" id="myModalLabel">Experiencia Profesional</h4>
-					      </div>
-					      <div class="modal-body">
-					        <textarea name="company_perfiles[experiencia]" value="<?php if(isset($_POST['company_perfiles']['experiencia'])){ echo $_POST['company_perfiles']['experiencia']; } ?>" id="input_experiencia" maxlength="220" id="" cols="30" rows="5" class="form-control"></textarea>
+				<div class="form-group">
+					<label>Experiencia Profesional</label>
+					<textarea name="company_perfiles[experiencia]" value="<?php if(isset($_POST['company_perfiles']['experiencia'])){ echo $_POST['company_perfiles']['experiencia']; } ?>" id="input_experiencia" maxlength="220" id="" cols="30" rows="5" class="form-control"></textarea>
 					        <span id="experiencia">220 caracteres</span>
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-					        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
-					      </div>
-					    </div>
-					  </div>
-					</div>
-			      
-			    </div>
-			  </div>				
+				</div>
 			</div>
 		</div>
+	
 
 		<div class="row">
 			<div class="col-md-6"></div>
@@ -277,7 +274,7 @@
 			<div class="col-md-4">
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn_crear_empresa">Enviar</button>
+						<button type="submit" class="btn_crear_empresa" onclick="submitForm()">Enviar</button>
 					</div>
 				</div>
 			</div>
@@ -288,6 +285,8 @@
 	<div class="col-md-3"></div>
 </div>
 <script type="text/javascript">
+// Returns text statistics for the specified editor by id
+
 		$(document).ready(function(){
 			$("#experiencia").text(220-$("#input_experiencia").val().length+" Caracteres");
 
