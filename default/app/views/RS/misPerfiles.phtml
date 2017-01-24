@@ -185,6 +185,7 @@
 					<th>Fecha de Aplicación</th>
 					<th>Sexo</th>
 					<th>Status</th>
+					<th>Puesto</th>
 					<th>Comentarios</th>
 					<th></th>
 				</thead>
@@ -268,6 +269,7 @@
 							</ul>
 							</div>							  
 						</td>
+						<td><?php echo $perfiles[$i]->puesto ?></td>
 						<td style="width:200px" contenteditable="true" class="comentarios" id="<?php echo $perfiles[$i]->id ?>">
 							<?php if (!$perfiles[$i]->comentario): ?>
 								Deja un Comentario
