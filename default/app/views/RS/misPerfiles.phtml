@@ -198,6 +198,7 @@
 					</select>
 				</div>
 			    <button class="btn btn-default" name="excel" value="1">Descargar</button>
+			    <?php echo Html::link("RS/misPerfiles","Reset","class='btn btn-default'") ?>
 			</form>
 		</div>
 	</div>
@@ -222,6 +223,7 @@
 					<th>Status</th>
 					<th>Puesto</th>
 					<th>Comentarios</th>
+					<th>Nivel de Educación</th>
 					<th></th>
 				</thead>
 				<?php for($i=0;$i<count($perfiles);$i++): ?>
@@ -311,6 +313,9 @@
 							<?php else: ?>
 								<?php echo $perfiles[$i]->comentario ?>
 							<?php endif ?>
+						</td>
+						<td>
+							<?php echo $perfiles[$i]->educacion ?>
 						</td>
 						<td>
 

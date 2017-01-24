@@ -130,7 +130,7 @@ class RSController extends AppController{
 			if (count($where)) {
 				$where[] = " and edad >= '".$_GET['edad_desde']."' ";
 			}else{
-				die("?");
+				//die("?");
 				$where[] = " edad >= '".$_GET['edad_desde']."' ";
 			}
 		}
@@ -188,7 +188,7 @@ class RSController extends AppController{
 			if (count($where)) {
 				$where[] = " and edad >= '".$_GET['edad_desde']."' ";
 			}else{
-				die("?");
+				//die("?");
 				$where[] = " edad >= '".$_GET['edad_desde']."' ";
 			}
 		}
@@ -270,7 +270,7 @@ class RSController extends AppController{
 	public function misPerfiles(){
 		$company = Load::model("company")->find_first("conditions: company_user = '".Auth::get('id')."' ");
 		$this->company = $company;
-		$where = array();
+		$where = array("company_id = '".$company->id."'");
 		if (isset($_GET['puesto']) and $_GET['puesto']) {
 			$where[] = " puesto = '".$_GET['puesto']."' ";
 		}
@@ -288,7 +288,7 @@ class RSController extends AppController{
 			if (count($where)) {
 				$where[] = " and edad >= '".$_GET['edad_desde']."' ";
 			}else{
-				die("?");
+				//die("?");
 				$where[] = " edad >= '".$_GET['edad_desde']."' ";
 			}
 		}
@@ -346,7 +346,7 @@ class RSController extends AppController{
 			if (count($where)) {
 				$where[] = " and edad >= '".$_GET['edad_desde']."' ";
 			}else{
-				die("?");
+				//die("?");
 				$where[] = " edad >= '".$_GET['edad_desde']."' ";
 			}
 		}
@@ -376,7 +376,7 @@ class RSController extends AppController{
 		}
 		if (count($where)) {
 			$where = implode(" ",$where);
-			//die($where);
+			//die("company_id = '".$company->id."' and ".$where);
 			$this->perfiles = Load::model('company_perfiles')->find("conditions: company_id = '".$company->id."' and ".$where,"columns: company_perfiles.id, nombre, sexo, email, edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company_perfiles.created");
 			//$this->perfiles = Load::model('company_perfiles')->find("conditions: ".$where);
 

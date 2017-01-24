@@ -178,15 +178,15 @@ function getStats(id) {
 }
 function submitForm() {
     // Check if the user has entered less than 1000 characters
-    if (getStats('texto').chars < 330) {
+    if (getStats('texto').chars < 550) {
         alert("You need to enter 330 characters or more.");
         return;
     }
-    if (getStats('agradecimiento').chars < 330) {
+    if (getStats('agradecimiento').chars < 550) {
         alert("You need to enter 330 characters or more.");
         return;
     }
-    if (getStats('aviso_privacidad').chars < 330) {
+    if (getStats('aviso_privacidad').chars < 550) {
         alert("You need to enter 330 characters or more.");
         return;
     }
@@ -236,7 +236,7 @@ tinymce.init({
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		$("#cantidad_palabras").text(330-$("#texto").val().length+" Caracteres");
+		$("#cantidad_palabras").text(550-$("#texto").val().length+" Caracteres");
 
 		$(".bg_url").click(function(){
 			window.open($(this).attr("src"))
@@ -245,7 +245,7 @@ tinymce.init({
 			window.open($(this).attr("src"))
 		});
 		$("#texto").keyup(function(){
-			$("#cantidad_palabras").text(330-$(this).val().length+" Caracteres");
+			$("#cantidad_palabras").text(550-$(this).val().length+" Caracteres");
 		})
 		$("body").on("keyup","#input_nuevo_puesto",function(e){
 			console.log(e.keyCode)
@@ -513,10 +513,10 @@ tinymce.init({
 				<div class="form-group">
 					<label>Mensaje de Bienvenida a candidatos</label>
 
-							<?php echo Form::textarea("texto","class='form-control' maxlength='330'",$company_fields->texto) ?>
+							<?php echo Form::textarea("texto","class='form-control' maxlength='550'",$company_fields->texto) ?>
 							
 						
-							<span id="cantidad_palabras" style="font-size: 9px;color:black;">330 caracteres</span>
+							<span id="cantidad_palabras" style="font-size: 9px;color:black;">550 caracteres</span>
 				</div>
 			</div>
 		</div>
