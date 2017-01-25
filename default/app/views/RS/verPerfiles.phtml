@@ -18,7 +18,6 @@
 		background-repeat:no-repeat;
 		width: 100%;
 		background-size:cover;
-		height: 100%;
 
 	}
 	.logo{
@@ -197,6 +196,7 @@
 			    <button class="btn btn-default" name="excel" value="1">Descargar</button>
 			    <?php echo Html::link("RS/verPerfiles","Reset","class='btn btn-default'") ?>
 			</form>
+			<br><br>
 		</div>
 	</div>
 	<div class="row">
@@ -222,19 +222,19 @@
 							<th></th>
 						</thead>
 					
-						<?php for($i=0;$i<count($perfiles);$i++): ?>
+						<?php for($i=0;$i<count($perfiles->items);$i++): ?>
 							<?php if ($i % 2 == 0): ?>
 								<tr style="background-color: #F6F6F6">
 							<?php else: ?>
 								<tr style="background-color: #f3f3f2">
 							<?php endif ?>
-								<td> <?php echo $perfiles[$i]->nombre ?></td>
-								<td><?php echo $perfiles[$i]->edad ?></td>
-								<td><?php echo $perfiles[$i]->email ?></td>
-								<td><?php echo $perfiles[$i]->telefono1 ?> | <?php echo $perfiles[$i]->telefono2 ?></td>
-								<td><?php echo $perfiles[$i]->created ?></td>
+								<td> <?php echo $perfiles->items[$i]->nombre ?></td>
+								<td><?php echo $perfiles->items[$i]->edad ?></td>
+								<td><?php echo $perfiles->items[$i]->email ?></td>
+								<td><?php echo $perfiles->items[$i]->telefono1 ?> | <?php echo $perfiles->items[$i]->telefono2 ?></td>
+								<td><?php echo $perfiles->items[$i]->created ?></td>
 								<td>
-						<?php if ($perfiles[$i]->sexo == "M"): ?>
+						<?php if ($perfiles->items[$i]->sexo == "M"): ?>
 						<?php echo Html::img("RECRUITMENT STATION/iconos h y m-01.png","","class='iconos_sexo'") ?>
 						<?php else: ?>
 						<?php echo Html::img("RECRUITMENT STATION/iconos h y m-02.png","","class='iconos_sexo'") ?>
@@ -248,53 +248,53 @@
 									<ul class="lightSlider">
 									  <li><a href="">&nbsp;</a></li>
 
-									  <?php if ($perfiles[$i]->no_aplica): ?>
+									  <?php if ($perfiles->items[$i]->no_aplica): ?>
 									  	<li><?php echo Html::img('RECRUITMENT STATION/iconos2-02.png') ?></li>
 										<?php else: ?>
 											<li><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-02.png') ?></li>
 									  <?php endif ?>
 
 
-									  <?php if ($perfiles[$i]->aplico): ?>
+									  <?php if ($perfiles->items[$i]->aplico): ?>
 									  	<li><?php echo Html::img('RECRUITMENT STATION/iconos2-03.png') ?></li>
 										<?php else: ?>
 											<li><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-03.png') ?></li>
 									  <?php endif ?>
 
-									  <?php if ($perfiles[$i]->llamar): ?>
+									  <?php if ($perfiles->items[$i]->llamar): ?>
 									  	<li><?php echo Html::img('RECRUITMENT STATION/iconos2-01.png') ?></li>
 										<?php else: ?>
 											<li><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-01.png') ?></li>
 									  <?php endif ?>
 
 
-									  <?php if ($perfiles[$i]->entrevista1): ?>
+									  <?php if ($perfiles->items[$i]->entrevista1): ?>
 									  	<li><?php echo Html::img('RECRUITMENT STATION/iconos2-04.png') ?></li>
 										<?php else: ?>
 											<li><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-04.png') ?></li>
 									  <?php endif ?>
 
 
-									  <?php if ($perfiles[$i]->entrevista2): ?>
+									  <?php if ($perfiles->items[$i]->entrevista2): ?>
 									  	<li><?php echo Html::img('RECRUITMENT STATION/iconos2-05.png') ?></li>
 										<?php else: ?>
 											<li><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-05.png') ?></li>
 									  <?php endif ?>
 
-									  <?php if ($perfiles[$i]->medico): ?>
+									  <?php if ($perfiles->items[$i]->medico): ?>
 									  	<li><?php echo Html::img('RECRUITMENT STATION/iconos2-06.png') ?></li>
 										<?php else: ?>
 											<li><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-06.png') ?></li>
 									  <?php endif ?>
 
-									  <?php if ($perfiles[$i]->documentos): ?>
+									  <?php if ($perfiles->items[$i]->documentos): ?>
 									  	<li><?php echo Html::img('RECRUITMENT STATION/iconos2-08.png') ?></li>
 										<?php else: ?>
 											<li><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-08.png') ?></li>
 									  <?php endif ?>
 
 
-									  <?php if ($perfiles[$i]->contrato): ?>
+									  <?php if ($perfiles->items[$i]->contrato): ?>
 									  	<li><?php echo Html::img('RECRUITMENT STATION/iconos2-07.png') ?></li>
 										<?php else: ?>
 											<li><?php echo Html::img('RECRUITMENT STATION/iconos2_byn-07.png') ?></li>
@@ -305,23 +305,25 @@
 									</ul>
 									</div>							  
 								</td>
-								<td><?php echo $perfiles[$i]->puesto ?></td>
-								<td style="width:200px" class="comentarios" id="<?php echo $perfiles[$i]->id ?>">
-									<?php if (!$perfiles[$i]->comentario): ?>
+								<td><?php echo $perfiles->items[$i]->puesto ?></td>
+								<td style="width:200px" class="comentarios" id="<?php echo $perfiles->items[$i]->id ?>">
+									<?php if (!$perfiles->items[$i]->comentario): ?>
 										Deja un Comentario
 									<?php else: ?>
-										<?php echo $perfiles[$i]->comentario ?>
+										<?php echo $perfiles->items[$i]->comentario ?>
 									<?php endif ?>
 								</td>
 								<td>
 												
 
-										<button type="button" class="btn btn-default popup" data-toggle="popover" data-placement="left" title="Experiencia Laboral" data-content="<?php echo $perfiles[$i]->experiencia ?>">Experiencia</button>
+										<button type="button" class="btn btn-default popup" data-toggle="popover" data-placement="left" title="Experiencia Laboral" data-content="<?php echo $perfiles->items[$i]->experiencia ?>">Experiencia</button>
 									
 								</td>
 							</tr>
 						<?php endfor; ?>
 					</table>
+								<?php if($perfiles->prev) echo Html::link('RS/verPerfiles/'.$perfiles->prev, 'Anterior') ?>
+<?php if($perfiles->next) echo ' | ' . Html::link('RS/verPerfiles/'.$perfiles->next, 'Siguiente') ?>
 		</div>
 		<div class="col-sm-1"></div>
 		
@@ -344,6 +346,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".datatable").DataTable({
+		paginate:false,
+		"info":     false,
 		language:{
 		    "sProcessing":     "Procesando...",
 		    "sLengthMenu":     "Mostrar _MENU_ registros",
