@@ -161,7 +161,7 @@ class RSController extends AppController{
 		if (count($where)) {
 			$where = implode(" ",$where);
 			//die($where);
-			$this->perfiles = Load::model('company_perfiles')->find("conditions: ".$where, 'per_page: 10', 'page: '.$page);
+			$this->perfiles = Load::model('company_perfiles')->paginate("conditions: ".$where, 'per_page: 10', 'page: '.$page);
 
 		}else{
 
@@ -223,19 +223,19 @@ class RSController extends AppController{
 
 
 			// $this->perfiles = Load::model('company_perfiles')->paginate('per_page: 10', 'page: '.$page);
-				$this->perfiles = Load::model('company_perfiles')->paginate("columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company.url,company_perfiles.created","join: inner join company on company.id = company_perfiles.company_id","conditions: ".$where,'per_page: 10', 'page: '.$page);
+				$this->perfiles = Load::model('company_perfiles')->find("columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company.url,company_perfiles.created","join: inner join company on company.id = company_perfiles.company_id","conditions: ".$where);
 				}else{
 
-				$this->perfiles = Load::model('company_perfiles')->paginate("columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company_perfiles.created","conditions: ".$where, 'per_page: 10', 'page: '.$page);
+				$this->perfiles = Load::model('company_perfiles')->find("columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company_perfiles.created","conditions: ".$where);
 				}
 			//$this->perfiles = Load::model('company_perfiles')->find("conditions: ".$where);
 
 		}else{
 				if (Auth::get("role") == 'admin') {
-				$this->perfiles = Load::model('company_perfiles')->paginate("columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company.url,company_perfiles.created","join: inner join company on company.id = company_perfiles.company_id", 'per_page: 10', 'page: '.$page);
+				$this->perfiles = Load::model('company_perfiles')->find("columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company.url,company_perfiles.created","join: inner join company on company.id = company_perfiles.company_id");
 				}else{
 
-				$this->perfiles = Load::model('company_perfiles')->paginate("columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company_perfiles.created", 'per_page: 10', 'page: '.$page);
+				$this->perfiles = Load::model('company_perfiles')->find("columns: company_perfiles.id,nombre, sexo, email,edad,telefono1,telefono2,puesto,experiencia,comentario,no_aplica,aplico,llamar,entrevista1,entrevista2,medico,documentos,contrato,company_perfiles.created");
 				}
 		}
 			
@@ -276,7 +276,7 @@ class RSController extends AppController{
 		$this->company = $company;
 		$where = array("company_id = '".$company->id."'");
 		if (isset($_GET['puesto']) and $_GET['puesto']) {
-			$where[] = " puesto = '".$_GET['puesto']."' ";
+			$where[] = " and puesto = '".$_GET['puesto']."' ";
 		}
 		if (isset($_GET['sexo']) and $_GET['sexo']) {
 			if (count($where)) {
