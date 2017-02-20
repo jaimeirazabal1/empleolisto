@@ -1,6 +1,16 @@
 <?php
 
 class RSController extends AppController{
+	public function actividades(){
+		if (Input::post('company_actividades')) {
+			$actividad = Load::model('company_actividades',Input::post('company_actividades'));
+			if ($actividad->save()) {
+				Flash::valid("Actividad Guardada");
+			}else{
+				Flash::error("No se guardo la actividad");
+			}
+		}
+	}
 	public function index(){
 		if (isset($_GET['p'])) {
 			$company = $_GET['p'];
@@ -36,8 +46,20 @@ class RSController extends AppController{
 				$this->company_puesto = Load::model("company_puesto")->find("conditions: company_id='".$this->company->id."' and activo='1'");
 				$this->company_plan = Load::model("company_plan")->find_first("conditions: company_id='".$this->company->id."' and activo='1'","limit: 1","order: id desc");
 				if (Input::hasPost("company_perfiles")) {
+					// echo "<pre>";
+					// print_r($_POST);
+					// die;
 					$company_perfiles = Load::model("company_perfiles",Input::post("company_perfiles"));
 					if ($company_perfiles->save()) {
+						for($i=0;$i<count($_POST['actividades']);$i++){
+						$actividad_perfil = Load::model("company_actividades_perfiles");
+							$actividad_perfil->perfil_id = $company_perfiles->lastId();
+							$actividad_perfil->actividad_id = $_POST['actividades'][$i];
+							if (!$actividad_perfil->save()) {
+								Flash::error("Ocurrio un error guardando la actividad ID:".$_POST['actividades'][$i]);
+							}
+
+						}
 						$_SESSION['company_id'] = $this->company->id;
 						Input::delete();
 						Router::redirect("RS/gracias");
@@ -274,7 +296,17 @@ class RSController extends AppController{
 	public function misPerfiles($page=1){
 		$company = Load::model("company")->find_first("conditions: company_user = '".Auth::get('id')."' ");
 		$this->company = $company;
-		$where = array("company_id = '".$company->id."'");
+		if (isset($_GET['actividades']) and $_GET['actividades']) {
+			if (count($where)) {
+				$inner = "inner join company_actividades_perfiles on company_actividades_perfiles.perfil_id = company_perfiles.id and company_actividades_perfiles.actividad_id = '".$_GET['actividades']."'";
+			}else{
+				$inner = "inner join company_actividades_perfiles on company_actividades_perfiles.perfil_id = company_perfiles.id and company_actividades_perfiles.actividad_id = '".$_GET['actividades']."'";
+			}
+			
+		}
+	
+		$where=array("company_id = '".$company->id."'");
+
 		if (isset($_GET['puesto']) and $_GET['puesto']) {
 			$where[] = " and puesto = '".$_GET['puesto']."' ";
 		}
@@ -286,6 +318,26 @@ class RSController extends AppController{
 			}else{
 
 				$where[] = " sexo = '".$_GET['sexo']."' ";
+			}
+		}
+		if (isset($_GET['estados_id']) and $_GET['estados_id']) {
+			if (count($where)) {
+				# code...
+				$where[] =  " and estados_id = '".$_GET['estados_id']."' ";
+				
+			}else{
+
+				$where[] = " estados_id = '".$_GET['estados_id']."' ";
+			}
+		}
+		if (isset($_GET['municipios_id']) and $_GET['municipios_id']) {
+			if (count($where)) {
+				# code...
+				$where[] =  " and municipios_id = '".$_GET['municipios_id']."' ";
+				
+			}else{
+
+				$where[] = " municipios_id = '".$_GET['municipios_id']."' ";
 			}
 		}
 		if (isset($_GET['edad_desde']) and $_GET['edad_desde'] and !$_GET['edad_hasta']) {
@@ -320,10 +372,16 @@ class RSController extends AppController{
 			}
 			
 		}
+		
 		if (count($where)) {
 			$where = implode(" ",$where);
-			//die($where);
-			$this->perfiles = Load::model('company_perfiles')->paginate($where, 'per_page: 10', 'page: '.$page);
+			if (isset($inner)) {
+				$this->perfiles = Load::model('company_perfiles')->paginate($where, 'per_page: 10', 'page: '.$page,"join: $inner","columns: company_perfiles.*");
+
+			}else{
+
+				$this->perfiles = Load::model('company_perfiles')->paginate($where, 'per_page: 10', 'page: '.$page);
+			}
 
 		}else{
 
@@ -502,9 +560,10 @@ class RSController extends AppController{
 
 	}
 	public function miPerfil(){
+
 		$company = Load::model("company")->find_first("conditions: company_user = '".Auth::get('id')."' ");
 		$this->company = $company;
-
+		$this->categorias = Load::model("company_categorias")->find();
 		$this->puestos = Load::model("company_puesto")->find("conditions: company_id = '".$company->id."' ");
 		$this->company_puesto = Load::model("company_puesto")->find("conditions: company_id='".$company->id."' and activo='1'");
 		$this->company_fields = Load::model("company_fields")->find_first("conditions: company_id = '".$company->id."' ");
@@ -521,7 +580,13 @@ class RSController extends AppController{
 				Flash::error("No se pudo Cambiar la contraseña!");
 			}
 		}
-		
+		if (Input::hasPost("foto")) {
+			$company->foto = 1;
+			$company->update();
+		}else{
+			$company->foto = 0;
+			$company->update();			
+		}
 		if (isset($_FILES['logo']) and $_FILES['logo']['size'] != 0) {
 	
 			$_FILES['logo']['name'] = time()."_".$_FILES['logo']['name'];

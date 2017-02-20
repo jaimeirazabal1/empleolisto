@@ -1,0 +1,26 @@
+<?php View::content() ?>
+<div class="container">
+<h2>Agregar Actividades</h2>	
+<?php echo Form::open() ?>
+	<div class="form-group">
+		<label>Categoria</label>
+		<select name="company_actividades[categorias_id]" class="form-control" id="">
+			<option value="">Seleccione</option>
+			<?php foreach (Load::model("company_categorias")->find() as $key => $value): ?>
+				<?php if (isset($_POST['company_actividades']['categorias_id']) and $_POST['company_actividades']['categorias_id'] ==  $value->id): ?>
+				<option value="<?php echo $value->id ?>" selected><?php echo $value->nombre ?></option>
+
+				<?php else: ?>
+
+				<option value="<?php echo $value->id ?>"><?php echo $value->nombre ?></option>
+				<?php endif ?>
+			<?php endforeach ?>
+		</select>
+	</div>
+	<div class="form-group">
+		<label>Nombre</label>
+		<?php echo Form::text("company_actividades.nombre","class='form-control'") ?>
+	</div>
+	<?php echo Form::submit("Guardar","class='btn btn-success'") ?>
+</div>
+<?php echo Form::close() ?>

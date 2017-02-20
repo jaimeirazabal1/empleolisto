@@ -70,7 +70,12 @@ if ($_SERVER['QUERY_STRING']) {
  * Obtiene la url
  */
 $url = isset($_GET['_url']) ? $_GET['_url'] : '/';
-
+if(empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "off"){
+    $redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    header('HTTP/1.1 301 Moved Permanently');
+    header('Location: ' . $redirect);
+    exit();
+}
 /**
  * Carga el gestor de arranque
  * Por defecto el bootstrap del core

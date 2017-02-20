@@ -20,7 +20,7 @@ class AppController extends Controller
     final protected function initialize()
     {
     	$ruta_actual = Router::get("controller")."/".Router::get("action");
-    	$rutas_publicas = array("RS/index","RS/logout","RS/login","RS/gracias");
+    	$rutas_publicas = array("RS/index","RS/logout","RS/login","RS/gracias","company_estados/get_municipios","company_puesto/buscar_actividades_de_puesto");
     	if (!Auth::is_valid() and !in_array($ruta_actual, $rutas_publicas)) {
     		Flash::error("Acceso Denegado");
     		Router::redirect("RS/");

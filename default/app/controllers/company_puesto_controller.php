@@ -2,8 +2,14 @@
 
 class CompanyPuestoController extends AppController{
 
+	public function buscar_actividades_de_puesto($puesto_id){
+		View::select(null,null);
+		$categoria = Load::model("company_puesto")->find($puesto_id);
+		$actividades = Load::model("company_actividades")->find("conditions: categorias_id='".$categoria->categoria_id."' ");
 
-	public function agregar($company_id,$puesto,$no_validate = null,$checked=null){
+		die(json_encode($actividades));
+	}
+	public function agregar($company_id,$puesto,$categoria_id,$no_validate = null,$checked=null){
 		if (!$no_validate) {
 			$puestos = array("cajero","limpieza","chofer","operador de linea","cocina","mesero","chef","ventas","promotor","barista","bartender","seguridad");
 			if (in_array(strtolower($puesto), $puestos)) {
@@ -27,6 +33,7 @@ class CompanyPuestoController extends AppController{
 		
 		$company_puesto = Load::model("company_puesto",array(
 				"company_id"=>$company_id,
+				"categoria_id"=>$categoria_id,
 				"puesto"=>ucwords($puesto),
 				"activo"=>$checked ? 1 : 0
 			));

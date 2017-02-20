@@ -146,9 +146,11 @@
 		<div class="col-md-12 text-center" style="margin-left:10px">
 			<br>
 			<form class="form-inline" action="<?php echo PUBLIC_PATH ?>RS/misPerfiles">
+			<div class="row">
+					<div class="col-md-12">
 				  <div class="form-group">
 				    <label style="color:white;font-weight: 100">Puesto</label>
-				    <select name="puesto" onChange="$(this).parent().parent().submit()" class="form-control" id="">
+				    <select name="puesto" onChange="$(this).parent().parent().parent().parent().submit()" class="form-control" id="">
 				    	<option value="">Seleccione</option>
 				    	<?php foreach ($puestos as $key => $value): ?>
 				    		<?php if (isset($_GET['puesto']) and $_GET['puesto'] == $value->puesto): ?>
@@ -163,7 +165,7 @@
 			  
 		
 				<div class="form-group">
-					<select class="form-control" onChange="$(this).parent().parent().submit()" name="sexo">
+					<select class="form-control" onChange="$(this).parent().parent().parent().parent().submit()" name="sexo">
 						<option value="">Sexo</option>
 
 						<option value="M" <?php if(isset($_GET['sexo']) and $_GET['sexo'] == 'M'): echo "selected"; endif;?>>Masculino</option>
@@ -171,34 +173,82 @@
 					</select>
 				</div>
 				<div class="form-group">
-					<select class="form-control" onChange="$(this).parent().parent().submit()" name="edad_desde">
+					<select class="form-control" onChange="$(this).parent().parent().parent().parent().submit()" name="edad_desde">
 						<option value="">Edad Desde</option>
 						<?php for($i=18;$i<81;$i++):?>
 							<option value="<?php echo $i ?>" <?php if(isset($_GET['edad_desde']) and $_GET['edad_desde'] == $i): echo "selected"; endif;?>><?php echo $i ?></option>
 						<?php endfor;?>
 					</select>
-					<select class="form-control" onChange="$(this).parent().parent().submit()" name="edad_hasta">
+					<select class="form-control" onChange="$(this).parent().parent().parent().parent().submit()" name="edad_hasta">
 						<option value="">Edad Hasta</option>
 						<?php for($i=18;$i<81;$i++):?>
 							<option value="<?php echo $i ?>" <?php if(isset($_GET['edad_hasta']) and $_GET['edad_hasta'] == $i): echo "selected"; endif;?>><?php echo $i ?></option>
 						<?php endfor;?>
 					</select>
 				</div>
-				<div class="form-group">
-					<select class="form-control" onChange="$(this).parent().parent().submit()" name="status">
-						<option value="">Status</option>
-						<option value="no_aplica" <?php if(isset($_GET['status']) and $_GET['status'] == 'no_aplica'): echo "selected"; endif;?>>No aplica</option>
-						<option value="aplico" <?php if(isset($_GET['status']) and $_GET['status'] == 'aplico'): echo "selected"; endif;?>>Aplicó</option>
-						<option value="llamar" <?php if(isset($_GET['status']) and $_GET['status'] == 'llamar'): echo "selected"; endif;?>>Llamar</option>
-						<option value="entrevista1" <?php if(isset($_GET['status']) and $_GET['status'] == 'entrevista1'): echo "selected"; endif;?>>Entrevista 1</option>
-						<option value="entrevista2" <?php if(isset($_GET['status']) and $_GET['status'] == 'entrevista2'): echo "selected"; endif;?>>Entrevista 2</option>
-						<option value="medico" <?php if(isset($_GET['status']) and $_GET['status'] == 'medico'): echo "selected"; endif;?>>Médico</option>
-						<option value="documentos" <?php if(isset($_GET['status']) and $_GET['status'] == 'documentos'): echo "selected"; endif;?>>Documentos</option>
-						<option value="contrato" <?php if(isset($_GET['status']) and $_GET['status'] == 'contrato'): echo "selected"; endif;?>>Contrato</option>
-					</select>
+				
+						<div class="form-group">
+							<select class="form-control" onChange="$(this).parent().parent().parent().parent().submit()" name="status">
+								<option value="">Status</option>
+								<option value="no_aplica" <?php if(isset($_GET['status']) and $_GET['status'] == 'no_aplica'): echo "selected"; endif;?>>No aplica</option>
+								<option value="aplico" <?php if(isset($_GET['status']) and $_GET['status'] == 'aplico'): echo "selected"; endif;?>>Aplicó</option>
+								<option value="llamar" <?php if(isset($_GET['status']) and $_GET['status'] == 'llamar'): echo "selected"; endif;?>>Llamar</option>
+								<option value="entrevista1" <?php if(isset($_GET['status']) and $_GET['status'] == 'entrevista1'): echo "selected"; endif;?>>Entrevista 1</option>
+								<option value="entrevista2" <?php if(isset($_GET['status']) and $_GET['status'] == 'entrevista2'): echo "selected"; endif;?>>Entrevista 2</option>
+								<option value="medico" <?php if(isset($_GET['status']) and $_GET['status'] == 'medico'): echo "selected"; endif;?>>Médico</option>
+								<option value="documentos" <?php if(isset($_GET['status']) and $_GET['status'] == 'documentos'): echo "selected"; endif;?>>Documentos</option>
+								<option value="contrato" <?php if(isset($_GET['status']) and $_GET['status'] == 'contrato'): echo "selected"; endif;?>>Contrato</option>
+							</select>
+						</div>
+					</div>
 				</div>
-			    <button class="btn btn-default" name="excel" value="1">Descargar</button>
-			    <?php echo Html::link("RS/misPerfiles","Reset","class='btn btn-default'") ?>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group" style="margin-top:5px">
+							<select class="form-control" onChange="$(this).parent().parent().parent().parent().submit()" name="actividades">
+								<option value="">Actividad</option>
+								<?php foreach (Load::model("company_actividades")->find() as $key => $value): ?>
+									<?php if (isset($_GET['actividades']) and $_GET['actividades'] == $value->id): ?>
+									<option value="<?php echo $value->id ?>" selected="selected"><?php echo $value->nombre ?></option>
+									<?php else: ?>
+									<option value="<?php echo $value->id ?>"><?php echo $value->nombre ?></option>
+										
+									<?php endif ?>
+								<?php endforeach ?>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group" style="margin-top:5px">
+							<select name="estados_id" id="estados" onChange="$(this).parent().parent().parent().parent().submit()" class="form-control">
+								<option value="">Seleccione un estado</option>
+								<?php foreach (Load::model("company_estados")->find() as $key => $value): ?>
+									<?php if (isset($_GET['estados_id']) and $_GET['estados_id'] == $value->id): ?>
+									<option value="<?php echo $value->id ?>" selected><?php echo $value->estado ?></option>
+
+										<?php else: ?>
+
+									<option value="<?php echo $value->id ?>"><?php echo $value->estado ?></option>
+									<?php endif ?>
+								<?php endforeach ?>
+							</select>
+						</div>
+						<div class="form-group">
+							<select name="municipios_id" onChange="$(this).parent().parent().parent().parent().submit()" id="municipios" class="form-control">
+								<option value="">Seleccione un Municipio</option>
+								
+							</select>
+						</div>
+					</div>
+				</div>
+			    <div class="row" style="margin-top:5px">
+			    	<div class="col-md-12">
+			    		<?php echo Html::link("RS/misPerfiles","Borrar filtros","class='btn btn-default'") ?>
+			    		<button class="btn btn-default" name="excel" value="1">Descargar</button>
+			    	</div>
+			    </div>
 			</form>
 			<br><br>
 		</div>
@@ -434,6 +484,52 @@ $(document).ready(function(){
 			}
 		})
 	})
+	var municipios_id = "<?php echo isset($_GET['municipios_id']) ? $_GET['municipios_id'] : '' ?>";
+	if ($("#estados").val()) {
+		estado  = $("#estados").val();
+				$("#municipios").html("<option>Cargando Municipios</option>");
+				$.ajax({
+					url:"<?php echo PUBLIC_PATH ?>company_estados/get_municipios/"+estado,
+					dataType:"json",
+					success:function(r){
+						options = "";
+						if (r.length) {
+							options += "<option value=''>Municipios</option>";
+							for (var i = 0; i < r.length; i++) {
+								if (municipios_id == r[i].id) {
+
+									options += "<option value='"+r[i].id+"' selected>"+r[i].municipio+"</option>";
+								}else{
+									options += "<option value='"+r[i].id+"'>"+r[i].municipio+"</option>";
+
+								}
+							}
+							$("#municipios").html(options);
+						}else{
+							$("#municipios").html("<option>Seleccione un estado</option>");
+						}
+					}
+				})
+	}
+	$("body").on("change","#estados",function(){
+				estado  = $(this).val();
+				$("#municipios").html("<option>Cargando Municipios</option>");
+				$.ajax({
+					url:"<?php echo PUBLIC_PATH ?>company_estados/get_municipios/"+estado,
+					dataType:"json",
+					success:function(r){
+						options = "";
+						if (r.length) {
+							for (var i = 0; i < r.length; i++) {
+								options += "<option value='"+r[i].id+"'>"+r[i].municipio+"</option>";
+							}
+							$("#municipios").html(options);
+						}else{
+							$("#municipios").html("<option>Seleccione un estado</option>");
+						}
+					}
+				})
+			});
 })
 </script>
 <style type="text/css">

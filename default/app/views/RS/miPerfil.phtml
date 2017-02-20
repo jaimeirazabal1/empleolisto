@@ -109,7 +109,7 @@
 		margin: auto;
 		padding:6px;
 	}
-	.btn-menos,.btn-mas{
+	.btn-menos{
 		border-radius: 10px;
 		border:0px;
 		color:white;
@@ -118,16 +118,14 @@
 		font-weight: bold;
 		font-size: 14px;
 	}
-	.btn-menos:active,.btn-mas:active{
+	.btn-menos:active{
 		box-shadow: 2px 2px 6px grey;
 		border:1px solid grey;
 	}
 	.btn-menos{
 		background-color: red;
 	}
-	.btn-mas{
-		background-color: green;
-	}
+	
 	.cajero_div{
 		color:black;
 		position: relative;
@@ -236,6 +234,8 @@ tinymce.init({
 <script type="text/javascript">
 
 	$(document).ready(function(){
+		
+
 		$("#cantidad_palabras").text(550-$("#texto").val().length+" Caracteres");
 
 		$(".bg_url").click(function(){
@@ -329,10 +329,13 @@ tinymce.init({
 		$("body").on("click",".btn-mas",function(e){
 			e.preventDefault();
 			var valor = $("#input_nuevo_puesto").val();
-			
+			if (!$("#categoria").val()) {
+				alert("Seleccione una categoria!");
+				return false;
+			}
 			if (valor) {
 				$.ajax({
-					url:"<?php echo PUBLIC_PATH ?>company_puesto/agregar/<?php echo $company->id ?>/"+valor,
+					url:"<?php echo PUBLIC_PATH ?>company_puesto/agregar/<?php echo $company->id ?>/"+valor+"/"+$("#categoria").val(),
 					dataType:"json",
 					success:function(r){
 						console.log(r)
@@ -373,13 +376,17 @@ tinymce.init({
 										"</div>")
 								}
 								$("#input_nuevo_puesto").val("");
+								$("#categoria").val("");
 								$("#input_nuevo_puesto").focus();
+								alert("Puesto Agregado con exito!");
 							}else{
 								alert("Ocurrió un error!");
 							}
 						}
 					}
 				})
+			}else{
+				alert("El puesto no puede ser nulo")
 			}
 		})
 	})
@@ -446,12 +453,30 @@ tinymce.init({
 			</div>
 			
 		</div>
-		<div class="row">
-			<div class="col-md-12 well">
-			<label>Puestos</label>
+
+			<div class="col-md-12" >
+			
 					<div class="row">
-						<div class="col-md-2"></div>
-						<div class="col-md-6 puestos_div">
+							<div class="col-md-4" style="margin-top:20px !important">
+								<select name="categoria" class="form-control" id="categoria">
+									<option value="">Seleccione una Categoria</option>
+									<?php foreach ($categorias as $key => $value): ?>
+										<option value="<?php echo $value->id ?>"><?php echo $value->nombre ?></option>
+									<?php endforeach ?>									
+								</select>
+							</div>
+							<div class="col-md-8 " style="margin-top:20px !important">
+							    <div class="input-group">
+							      <input type="text" class="form-control" name="nuevo_puesto" id="input_nuevo_puesto" placeholder="Nuevo Puesto">
+							      <span class="input-group-btn">
+							        <button class="btn btn-mas btn-success" type="button">Agregar!</button>
+							      </span>
+							    </div>
+							</div>
+							
+					</div>
+						<div class="col-md-12 puestos_div" style="margin-top:4px !important">
+						<label>Puestos</label>
 							<div class="row">
 								<div class="col-md-3 text-left">
 									<div class="label_puesto"><label><input  class='puesto_fijo' <?php echo Load::model("company_puesto")->puesto_comun($company->id,"Cajero") ?> puesto="Cajero" type="checkbox">&nbsp;Cajero</label></div>
@@ -501,12 +526,7 @@ tinymce.init({
 							</div>
 							
 						</div>
-						<div class="col-md-3 cajero_div ">
-								Agregar: <span class='cajero_box'><input type="text"  id="input_nuevo_puesto" style="color:grey" name="nuevo_puesto"> <button class="btn-mas">+</button></span>
-						</div>
-						<div class="col-md-1"></div>
-					</div>
-			</div>
+						
 		</div>
 		<div class="row well">
 			<div class="col-md-12">
@@ -537,17 +557,24 @@ tinymce.init({
 			</div>
 		</div>
 		<div class="row well">
-		<div class="col-md-6 text-center">
+		<div class="col-md-4 text-center">
 							<div id="fondo_perfil" >
 								<p>Selecciona un color de fondo abajo</p>
 							</div><br>
 							<input type="color" name="color" value="<?php echo $company_fields->bg_color ?>" onchange="$('#fondo_perfil').css('backgroundColor',$(this).val())">
 						</div>
-			<div class="col-md-6 ">
+			<div class="col-md-4 ">
 				<div class="form-group">
 					<label>Cambio de Password</label>
 					<input type="text" class="form-control" name="password" placeholder="Cambiar Contraseña">
 					<input type="text" class="form-control" name="password2" placeholder="Repetir Contraseña">
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label>
+						<input type="checkbox" value="1" name="foto" <?php if($company->foto): echo "checked"; endif; ?>> Permitir Foto
+					</label>
 				</div>
 			</div>
 		</div>
